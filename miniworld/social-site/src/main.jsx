@@ -9,22 +9,30 @@ import avatar3 from './assets/avatars/avatar-3.png';
 import avatar4 from './assets/avatars/avatar-4.png';
 import avatar5 from './assets/avatars/avatar-5.png';
 import avatar6 from './assets/avatars/avatar-6.png';
-import mapCover1 from './assets/map-covers/map-cover-1.png';
-import mapCover2 from './assets/map-covers/map-cover-2.png';
-import mapCover3 from './assets/map-covers/map-cover-3.png';
-import mapCover4 from './assets/map-covers/map-cover-4.png';
-import mapCover5 from './assets/map-covers/map-cover-5.png';
-import mapCover6 from './assets/map-covers/map-cover-6.png';
+import mapCover1 from './assets/map-covers/map-cover-1.jpg';
+import mapCover2 from './assets/map-covers/map-cover-2.jpg';
+import mapCover3 from './assets/map-covers/map-cover-3.jpeg';
+import mapCover4 from './assets/map-covers/map-cover-4.jpg';
+import mapCover5 from './assets/map-covers/map-cover-5.jpg';
+import mapCover6 from './assets/map-covers/map-cover-6.jpg';
 import playIcon from './assets/icons/Frame 8507.png';
 import remixIcon from './assets/icons/Frame 8508.png';
 import closeIcon from './assets/icons/Component 177.png';
 import expertBadge from './assets/icons/image 58.png';
 import communityBadge from './assets/icons/image 61.png';
+import socialGroupHero from './assets/icons/social-group-hero.png';
 import previewVideo1 from './assets/videos/preview-1.mp4';
 import previewVideo2 from './assets/videos/preview-2.mp4';
 import previewVideo3 from './assets/videos/preview-3.mp4';
 import previewVideo4 from './assets/videos/preview-4.mp4';
 import previewVideo5 from './assets/videos/preview-5.mp4';
+import previewVideo6 from './assets/videos/preview-6.mp4';
+import groupCover1 from './assets/group-covers/group-cover-1.png';
+import groupCover2 from './assets/group-covers/group-cover-2.png';
+import groupCover3 from './assets/group-covers/group-cover-3.png';
+import groupCover4 from './assets/group-covers/group-cover-4.png';
+import groupCover5 from './assets/group-covers/group-cover-5.png';
+import groupCover6 from './assets/group-covers/group-cover-6.png';
 
 const svgData = svg => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 
@@ -94,7 +102,7 @@ const ugcMaps = [
   { title: '废墟能量战场', type: '对抗', creator: 'Kiki', avatar: avatar3, cover: mapCover3, video: previewVideo3, likes: '12.9w', plays: '88.2w', comments: '3.5k', desc: '争夺中心能量核心，占点、防守、反打都很关键。', tags: ['PVP', '组队', '热血'], difficulty: '中等' },
   { title: '樱花列车物语', type: '剧情', creator: 'Ari', avatar: avatar4, cover: mapCover4, video: previewVideo4, likes: '7.1w', plays: '51.6w', comments: '952', desc: '坐上通往樱花岛的列车，解锁沿途 NPC 的小故事。', tags: ['剧情', '探索', '治愈'], difficulty: '休闲' },
   { title: '机关密室 24H', type: '解谜', creator: 'Ben', avatar: avatar5, cover: mapCover5, video: previewVideo5, likes: '4.8w', plays: '23.7w', comments: '670', desc: '每个房间都有一个机关逻辑，适合和好友语音开黑。', tags: ['机关', '解谜', '双人'], difficulty: '困难' },
-  { title: '糖果岛派对', type: '派对', creator: 'Luna', avatar: avatar6, cover: mapCover6, video: previewVideo1, likes: '9.3w', plays: '62.4w', comments: '1.8k', desc: '随机小游戏轮换，最后一名会被糖果炮弹发射出去。', tags: ['派对', '随机', '欢乐'], difficulty: '简单' },
+  { title: '糖果岛派对', type: '派对', creator: 'Luna', avatar: avatar6, cover: mapCover6, video: previewVideo6, likes: '9.3w', plays: '62.4w', comments: '1.8k', desc: '随机小游戏轮换，最后一名会被糖果炮弹发射出去。', tags: ['派对', '随机', '欢乐'], difficulty: '简单' },
 ];
 
 const feedTabs = ['Following', 'For You', 'Explore', 'New'];
@@ -114,14 +122,14 @@ const recommended = [
 const friendDirectoryTags = ['全部好友', '王者荣耀', '王者荣耀世界', '王者万'];
 
 const socialGroups = [
-  { title: '恋爱 💞 交友', count: '6690人', cover: 'linear-gradient(135deg, rgba(251, 113, 133, 0.32), rgba(251, 191, 36, 0.22))', badge: '新群' },
-  { title: '快来谈恋爱 💞', count: '1865人', cover: 'linear-gradient(135deg, rgba(96, 165, 250, 0.28), rgba(167, 139, 250, 0.26))', badge: '新群' },
-  { title: '召唤师大本营', count: '10万人+', cover: 'linear-gradient(135deg, rgba(34, 197, 94, 0.22), rgba(34, 211, 238, 0.18))' },
-  { title: '峡谷互助小组', count: '10万人+', cover: 'linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(236, 72, 153, 0.14))' },
-  { title: '福利互助群 💕', count: '10万人+', cover: 'linear-gradient(135deg, rgba(248, 113, 113, 0.18), rgba(59, 130, 246, 0.14))' },
-  { title: '星光游乐园', count: '10万人+', cover: 'linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(16, 185, 129, 0.16))' },
-  { title: '夏茗资讯站', count: '', cover: 'linear-gradient(135deg, rgba(148, 163, 184, 0.18), rgba(59, 130, 246, 0.12))' },
-  { title: '东北聚集地', count: '', cover: 'linear-gradient(135deg, rgba(251, 146, 60, 0.18), rgba(34, 211, 238, 0.12))' },
+  { title: '方块搭子局', count: '6690人', coverImage: groupCover1, badge: '新群' },
+  { title: '开黑交友营', count: '1865人', coverImage: groupCover2, badge: '新群' },
+  { title: '冒险小队', count: '10万人+', coverImage: groupCover3 },
+  { title: '语音找搭子', count: '10万人+', coverImage: groupCover4 },
+  { title: '派对扩列厅', count: '10万人+', coverImage: groupCover5 },
+  { title: 'CP 甜甜圈', count: '10万人+', coverImage: groupCover6 },
+  { title: '夜聊树洞', count: '', coverImage: groupCover1 },
+  { title: '新人交友营', count: '', coverImage: groupCover2 },
 ];
 
 function App() {
@@ -537,7 +545,7 @@ function App() {
                 )
               ) : friendsSection === 'social' ? (
                 <section className="social-page" aria-label="社交圈">
-                  <div className="social-hero">
+                  <div className="social-hero" style={{ backgroundImage: `url(${socialGroupHero})` }}>
                     <div className="social-hero-copy">
                       <h1>发现群聊</h1>
                       <p>推荐 · 开黑 · 交友 · 赛事</p>
@@ -548,10 +556,21 @@ function App() {
                       <button key={tab} className={tab === '推荐' ? 'active' : ''} type="button">{tab}</button>
                     ))}
                   </div>
-                  <div className="social-grid" aria-label="群组推荐列表">
+                  <div
+                    className="social-grid drag-scroll-area"
+                    onMouseDown={handleDragStart}
+                    onMouseMove={handleDragMove}
+                    onMouseUp={handleDragEnd}
+                    onMouseLeave={handleDragEnd}
+                    aria-label="群组推荐列表"
+                  >
                     {socialGroups.map(group => (
                       <button key={group.title} type="button" className="social-card" onClick={() => setToast(`打开群组：${group.title}`)}>
-                        <div className="social-card-cover" style={{ background: group.cover }}>
+                        <div
+                          className="social-card-cover"
+                          style={group.coverImage ? undefined : { background: group.cover }}
+                        >
+                          {group.coverImage ? <img src={group.coverImage} alt="" aria-hidden /> : null}
                           {group.badge && <span className="social-badge">{group.badge}</span>}
                         </div>
                         <div className="social-card-meta">
@@ -743,14 +762,6 @@ function App() {
                     <span className="preview-pause-icon" />
                   </div>
                   <div className="ugc-cover-shade" />
-                  <div className="ugc-primary-actions">
-                    <button className="img-action-btn" onClick={() => setToast(`一键开始：${map.title}`)} aria-label="一键游戏"><img src={playIcon} alt="一键游戏" /></button>
-                    <button className="img-action-btn" onClick={() => setToast(`基于 ${map.title} 开始二次创作`)} aria-label="二次创作"><img src={remixIcon} alt="二次创作" /></button>
-                    <button className="detail-pill-btn" onClick={() => setSelectedMapForDetail(map)} aria-label="查看详情">
-                      <Compass size={14} />
-                      <span>详情</span>
-                    </button>
-                  </div>
                   <div className="ugc-type-pill"><Compass size={14} /> {map.type}</div>
                   <button
                     className="ugc-play-button"
@@ -768,8 +779,34 @@ function App() {
                     <div className="creator-row">
                       <img src={map.avatar} alt={`${map.creator} 头像`} />
                       <span>@{map.creator}</span>
-                      <button 
-                        className={followedCreators.has(map.creator) ? 'followed' : ''} 
+                      <div className="ugc-primary-actions" aria-label="快捷操作">
+                        <button
+                          className="img-action-btn"
+                          onClick={() => setToast(`一键开始：${map.title}`)}
+                          aria-label="试玩"
+                          title="试玩"
+                        >
+                          <img src={playIcon} alt="" />
+                        </button>
+                        <button
+                          className="img-action-btn"
+                          onClick={() => setToast(`基于 ${map.title} 开始二次创作`)}
+                          aria-label="复制项目"
+                          title="复制项目"
+                        >
+                          <img src={remixIcon} alt="" />
+                        </button>
+                        <button
+                          className="detail-pill-btn"
+                          onClick={() => setSelectedMapForDetail(map)}
+                          aria-label="详情"
+                          title="详情"
+                        >
+                          <Compass size={14} />
+                        </button>
+                      </div>
+                      <button
+                        className={`creator-follow-btn ${followedCreators.has(map.creator) ? 'followed' : ''}`}
                         onClick={() => toggleFollow(map.creator)}
                       >
                         {followedCreators.has(map.creator) ? '已关注' : '关注'}
