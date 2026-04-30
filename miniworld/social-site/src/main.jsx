@@ -1,8 +1,30 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowLeft, Bell, Bookmark, Compass, DoorOpen, Gamepad2, Heart, Home, MessageCircle, MoreHorizontal, Play, Plus, Search, Send, Share2, SmilePlus, Sparkles, Tags, ThumbsUp, Trophy, UserPlus, UserRound, Users, UsersRound, Volume2, X, Zap } from 'lucide-react';
+import { ArrowLeft, Bell, Bookmark, Bot, Compass, DoorOpen, Gamepad2, Heart, Home, MessageCircle, MoreHorizontal, Play, Plus, Search, Send, Share2, SmilePlus, Sparkles, Tags, ThumbsUp, Trophy, UserPlus, UserRound, Users, UsersRound, Volume2, X, Zap } from 'lucide-react';
 import './styles.css';
-import mainCharacterImage from './assets/main-character.png';
+import homeHeroAvatar from './assets/avatar/avatar-hero.png';
+import homeMiniAvatar from './assets/avatar/avatar-mini.png';
+import avatarIcon01 from './assets/avatar-icons/icon-01.png';
+import avatarIcon02 from './assets/avatar-icons/icon-02.png';
+import avatarIcon03 from './assets/avatar-icons/icon-03.png';
+import avatarIcon04 from './assets/avatar-icons/icon-04.png';
+import avatarIcon05 from './assets/avatar-icons/icon-05.png';
+import avatarIcon06 from './assets/avatar-icons/icon-06.png';
+import avatarIcon07 from './assets/avatar-icons/icon-07.png';
+import role01 from './assets/avatars-hero/role-01.png';
+import role02 from './assets/avatars-hero/role-02.png';
+import role03 from './assets/avatars-hero/role-03.png';
+import role04 from './assets/avatars-hero/role-04.png';
+import role05 from './assets/avatars-hero/role-05.png';
+import role06 from './assets/avatars-hero/role-06.png';
+import role07 from './assets/avatars-hero/role-07.png';
+import mapIcon01 from './assets/map-icons/mapicon-01.png';
+import mapIcon02 from './assets/map-icons/mapicon-02.png';
+import mapIcon03 from './assets/map-icons/mapicon-03.png';
+import mapIcon04 from './assets/map-icons/mapicon-04.png';
+import mapIcon05 from './assets/map-icons/mapicon-05.png';
+import mapIcon06 from './assets/map-icons/mapicon-06.png';
+import mapIcon07 from './assets/map-icons/mapicon-07.jpg';
 import avatar1 from './assets/avatars/avatar-1.png';
 import avatar2 from './assets/avatars/avatar-2.png';
 import avatar3 from './assets/avatars/avatar-3.png';
@@ -35,6 +57,7 @@ import groupCover5 from './assets/group-covers/group-cover-5.png';
 import groupCover6 from './assets/group-covers/group-cover-6.png';
 
 const svgData = svg => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
 const friends = [
   { name: 'Mika', avatar: avatar1, status: 'online', color: '#ffe35d' },
@@ -108,15 +131,15 @@ const ugcMaps = [
 const feedTabs = ['Following', 'For You', 'Explore', 'New'];
 
 const continueGames = [
-  { title: 'Sky Builder', tag: '建造', cover: 'linear-gradient(135deg, #54d6ff, #2271ff 48%, #ffe76b)', players: '82.5k', progress: 68 },
-  { title: 'Squad Park', tag: '派对', cover: 'linear-gradient(135deg, #8ff2c5, #3ba6ff 45%, #ffbd59)', players: '52.6k', progress: 42 },
-  { title: 'Block Rush', tag: '竞速', cover: 'linear-gradient(135deg, #ff68d8, #7c3aed 50%, #22d3ee)', players: '42.6k', progress: 24 },
+  { title: 'Sky Builder', tag: '建造', coverImage: mapIcon01, players: '82.5k', progress: 68 },
+  { title: 'Squad Park', tag: '派对', coverImage: mapIcon02, players: '52.6k', progress: 42 },
+  { title: 'Block Rush', tag: '竞速', coverImage: mapIcon03, players: '42.6k', progress: 24 },
 ];
 
 const recommended = [
-  { title: '像素能量战场', desc: '和好友组队占领能量核心', metric: '9.6 热度', cover: 'linear-gradient(135deg, #231942, #5e60ce 42%, #ffbe0b)' },
-  { title: '小镇创作者', desc: '一起搭建开放世界街区', metric: '新地图', cover: 'linear-gradient(135deg, #99f6e4, #60a5fa 50%, #fbbf24)' },
-  { title: '萌宠冒险岛', desc: '收集伙伴并完成每日任务', metric: '好友在玩', cover: 'linear-gradient(135deg, #fef3c7, #f97316 45%, #22c55e)' },
+  { title: '像素能量战场', desc: '和好友组队占领能量核心', metric: '9.6 热度', coverImage: mapIcon04 },
+  { title: '小镇创作者', desc: '一起搭建开放世界街区', metric: '新地图', coverImage: mapIcon05 },
+  { title: '萌宠冒险岛', desc: '收集伙伴并完成每日任务', metric: '好友在玩', coverImage: mapIcon06 },
 ];
 
 const friendDirectoryTags = ['全部好友', '王者荣耀', '王者荣耀世界', '王者万'];
@@ -134,9 +157,15 @@ const socialGroups = [
 
 function App() {
   const [activeTab, setActiveTab] = useState('home');
+  const [lastNonAiTab, setLastNonAiTab] = useState('home');
   const [selectedGame, setSelectedGame] = useState(continueGames[0]);
   const [showComposer, setShowComposer] = useState(false);
   const [toast, setToast] = useState('欢迎回来，继续你的创造旅程');
+  const [aiInput, setAiInput] = useState('');
+  const [aiMessages, setAiMessages] = useState([
+    { from: 'ai', text: "I'm Mini World’s intelligent AI assistant. How can I help you today?" },
+  ]);
+  const [aiHasInteracted, setAiHasInteracted] = useState(false);
   const [selectedFriend, setSelectedFriend] = useState(null);
   const [selectedMapForDetail, setSelectedMapForDetail] = useState(null);
   const [chatInput, setChatInput] = useState('');
@@ -150,6 +179,30 @@ function App() {
   const previewVideoRefs = useRef({});
   const [pauseFlash, setPauseFlash] = useState(null);
   const pauseFlashTimerRef = useRef(null);
+
+  const avatarIconRowRef = useRef(null);
+  const avatarIconDragRef = useRef({ active: false, moved: false, startX: 0, scrollLeft: 0, pointerId: null });
+
+  const avatarIconOptions = useMemo(() => ([
+    { id: '01', src: avatarIcon01 },
+    { id: '02', src: avatarIcon02 },
+    { id: '03', src: avatarIcon03 },
+    { id: '04', src: avatarIcon04 },
+    { id: '05', src: avatarIcon05 },
+    { id: '06', src: avatarIcon06 },
+    { id: '07', src: avatarIcon07 },
+  ]), []);
+  const [selectedAvatarIconId, setSelectedAvatarIconId] = useState('04');
+  const roleAvatarOptions = useMemo(() => ({
+    '01': role01,
+    '02': role02,
+    '03': role03,
+    '04': role04,
+    '05': role05,
+    '06': role06,
+    '07': role07,
+  }), []);
+  const selectedRoleAvatar = roleAvatarOptions[selectedAvatarIconId] ?? role04;
 
   const toggleFollow = (creator) => {
     setFollowedCreators(prev => {
@@ -186,6 +239,51 @@ function App() {
   );
   const onlineCount = onlineFriends.length;
   const currentChatMessages = selectedFriend ? chatMessagesByFriend[selectedFriend.name] ?? [] : [];
+
+  const continueGameDetailByTitle = useMemo(() => ({
+    'Sky Builder': {
+      title: 'Sky Builder',
+      type: '建造',
+      creator: 'Mika',
+      avatar: avatar1,
+      cover: mapCover1,
+      video: previewVideo1,
+      likes: '4.2w',
+      plays: '82.5k',
+      comments: '612',
+      desc: '在天空岛上建造你的创意基地，邀请好友一起搭桥、布置机关与装饰。',
+      tags: ['创造', '多人', '轻松'],
+      difficulty: '休闲',
+    },
+    'Squad Park': {
+      title: 'Squad Park',
+      type: '派对',
+      creator: 'Kiki',
+      avatar: avatar3,
+      cover: mapCover2,
+      video: previewVideo2,
+      likes: '3.1w',
+      plays: '52.6k',
+      comments: '488',
+      desc: '派对小游戏轮换，支持快速组队加入，适合语音开黑与休闲社交。',
+      tags: ['派对', '随机', '欢乐'],
+      difficulty: '简单',
+    },
+    'Block Rush': {
+      title: 'Block Rush',
+      type: '竞速',
+      creator: 'Ari',
+      avatar: avatar4,
+      cover: mapCover3,
+      video: previewVideo3,
+      likes: '5.6w',
+      plays: '42.6k',
+      comments: '735',
+      desc: '极限冲刺与躲避障碍的竞速挑战，冲进排行榜拿下最快记录。',
+      tags: ['竞速', '反应', '挑战'],
+      difficulty: '中等',
+    },
+  }), []);
 
   const nameCollator = useMemo(() => {
     try {
@@ -224,6 +322,117 @@ function App() {
     setToast(`已切换到${labels[tab]}`);
   };
 
+  const toggleAiMode = () => {
+    setActiveTab(prev => {
+      if (prev === 'ai') {
+        // Return to the tab user was on before entering AI.
+        return lastNonAiTab ?? 'home';
+      }
+      return 'ai';
+    });
+    // When leaving AI, ensure the previous window is visible/expanded.
+    if (activeTab === 'ai' && (lastNonAiTab ?? 'home') === 'home') {
+      setHomeSheetY(0);
+    }
+  };
+
+  const sendAiMessage = () => {
+    const text = aiInput.trim();
+    if (!text) return;
+    setAiHasInteracted(true);
+    setAiMessages(prev => [
+      ...prev,
+      { from: 'me', text },
+      { from: 'ai', text: '收到，我先帮你拆解任务并给出实现建议。' },
+    ]);
+    setAiInput('');
+  };
+
+  const aiQuickOptions = useMemo(() => ([
+    {
+      id: 'block-spawn-monster',
+      text: 'Help me generate a Mini World script: spawn a monster when a block is clicked.',
+    },
+    {
+      id: 'recent-update',
+      text: "What's new in the latest Mini World update?",
+    },
+    {
+      id: 'hot-maps',
+      text: 'Recommend a few of the hottest maps right now.',
+    },
+  ]), []);
+
+  useEffect(() => {
+    const typingMsg = aiMessages.find(m => m?.typing);
+    if (!typingMsg) return;
+
+    const tickMs = 18;
+    const timer = setInterval(() => {
+      setAiMessages(prev => prev.map(m => {
+        if (m?.id !== typingMsg.id || !m.typing) return m;
+        if (m.phase === 'code') {
+          const nextLen = Math.min((m.code?.length ?? 0) + 1, m.fullCode.length);
+          const nextCode = m.fullCode.slice(0, nextLen);
+          if (nextLen >= m.fullCode.length) {
+            return { ...m, code: nextCode, phase: 'text' };
+          }
+          return { ...m, code: nextCode };
+        }
+        const nextLen = Math.min((m.text?.length ?? 0) + 1, m.fullText.length);
+        const nextText = m.fullText.slice(0, nextLen);
+        if (nextLen >= m.fullText.length) {
+          return { ...m, text: nextText, typing: false };
+        }
+        return { ...m, text: nextText };
+      }));
+    }, tickMs);
+
+    return () => clearInterval(timer);
+  }, [aiMessages]);
+
+  const handleAiQuickOption = (option) => {
+    setAiHasInteracted(true);
+    if (option.id === 'block-spawn-monster') {
+      const id = `script-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      setAiMessages(prev => [
+        ...prev,
+        { from: 'me', text: option.text },
+        {
+          id,
+          from: 'ai',
+          kind: 'script',
+          code: '',
+          text: '',
+          fullCode: [
+            'local Script = {}  -- Called when the component starts',
+            'function Script:OnStart()',
+            '    GameObject:CreatePrefab(ObjType.Mob, 3102, 10, 8, 10)',
+            'end',
+            'return Script',
+          ].join('\n'),
+          fullText: [
+            'Code explanation:',
+            'Ye Meng Bao is a common monster in the game, but it normally spawns randomly on the map.',
+            'With this single script instruction, you can spawn Ye Meng Bao at the specified coordinates.',
+            '',
+            'Paste the code into the Script editor and give it a try.',
+            'If you are not afraid of danger, you can spawn more of them — and you can also change the coordinates.',
+          ].join('\n'),
+          typing: true,
+          phase: 'code',
+        },
+      ]);
+      return;
+    }
+
+    setAiMessages(prev => [
+      ...prev,
+      { from: 'me', text: option.text },
+      { from: 'ai', text: '收到，我先帮你拆解任务并给出实现建议。' },
+    ]);
+  };
+
   const handleDragStart = event => {
     dragState.current = {
       active: true,
@@ -241,6 +450,48 @@ function App() {
   const handleDragEnd = event => {
     dragState.current.active = false;
     event.currentTarget.classList.remove('dragging');
+  };
+
+  const handleAvatarIconDragStart = event => {
+    const target = avatarIconRowRef.current;
+    if (!target) return;
+    // If user starts on an icon button, allow click selection (no drag capture).
+    if (event.target?.closest?.('.avatar-icon-btn')) return;
+    avatarIconDragRef.current = {
+      active: true,
+      moved: false,
+      startX: event.clientX,
+      scrollLeft: target.scrollLeft,
+      pointerId: event.pointerId,
+    };
+    target.setPointerCapture?.(event.pointerId);
+    target.classList.add('dragging-x');
+  };
+
+  const handleAvatarIconDragMove = event => {
+    const target = avatarIconRowRef.current;
+    const drag = avatarIconDragRef.current;
+    if (!target || !drag.active || drag.pointerId !== event.pointerId) return;
+    const dx = event.clientX - drag.startX;
+    if (!drag.moved && Math.abs(dx) > 4) drag.moved = true;
+    target.scrollLeft = drag.scrollLeft - dx;
+  };
+
+  const handleAvatarIconDragEnd = event => {
+    const target = avatarIconRowRef.current;
+    const drag = avatarIconDragRef.current;
+    if (!drag.active || drag.pointerId !== event.pointerId) return;
+    drag.active = false;
+    target?.classList.remove('dragging-x');
+  };
+
+  const handleAvatarIconRowClickCapture = event => {
+    // Prevent accidental clicks when user was dragging to scroll.
+    if (avatarIconDragRef.current.moved) {
+      event.preventDefault();
+      event.stopPropagation();
+      avatarIconDragRef.current.moved = false;
+    }
   };
 
   const appendMessageForSelectedFriend = message => {
@@ -307,11 +558,22 @@ function App() {
     pauseFlashTimerRef.current = setTimeout(() => setPauseFlash(null), 600);
   };
 
+  useEffect(() => {
+    if (activeTab !== 'ai') setLastNonAiTab(activeTab);
+  }, [activeTab]);
+
+  const isAiMode = activeTab === 'ai';
+  const contentTab = isAiMode ? lastNonAiTab : activeTab;
+
   return (
     <main className="app-shell">
-      <section className={`phone-frame ${activeTab === 'friends' ? 'friends-mode' : ''} ${activeTab === 'home' ? 'feed-mode' : ''}`}>
+      <section className={`phone-frame ${contentTab === 'friends' ? 'friends-mode' : ''} ${contentTab === 'games' ? 'feed-mode' : ''} ${isAiMode ? 'ai-mode' : ''}`}>
         <div className="aurora aurora-one" />
         <div className="aurora aurora-two" />
+        <div className="ai-flow-bg" aria-hidden />
+        {contentTab === 'home' && (
+          <div className="home-cool-bg" aria-hidden />
+        )}
 
         <header className="top-bar">
           <div className="brand">
@@ -319,27 +581,97 @@ function App() {
             <span>MiniCreata</span>
           </div>
           <div className="top-actions">
+            <button aria-label="AI 助手" onClick={toggleAiMode} className={isAiMode ? 'is-active' : ''}><Bot size={20} /></button>
             <button aria-label="搜索"><Search size={20} /></button>
             <button aria-label="通知"><Bell size={20} /></button>
           </div>
         </header>
 
-        {activeTab === 'profile' && (
+        <section className={`ai-page ${isAiMode ? 'is-visible' : ''}`} aria-label="AI 界面">
+          <div className="ai-chat-scroll" aria-label="对话内容">
+            {aiMessages.map((msg, idx) => (
+              idx === 0 && msg.from === 'ai' ? (
+                <div key={idx} className="ai-welcome" aria-label="AI 欢迎语">
+                  <div className="ai-welcome-icon" aria-hidden>M</div>
+                  <div className="ai-bubble ai-bubble--welcome">{msg.text}</div>
+                </div>
+              ) : (
+                <div key={msg.id ?? idx} className={`ai-msg ${msg.from === 'me' ? 'mine' : 'theirs'}`}>
+                  <div className="ai-bubble">
+                    {msg.kind === 'script' ? (
+                      <>
+                        <pre className="ai-code">
+                          {msg.code}
+                          {msg.typing && msg.phase === 'code' ? <span className="ai-caret" aria-hidden /> : null}
+                        </pre>
+                        <div className="ai-explain">
+                          {msg.text}
+                          {msg.typing && msg.phase === 'text' ? <span className="ai-caret" aria-hidden /> : null}
+                        </div>
+                      </>
+                    ) : (
+                      msg.text
+                    )}
+                  </div>
+                </div>
+              )
+            ))}
+
+            {!aiHasInteracted && (
+              <section className="ai-quick-options" aria-label="Quick questions">
+                <div className="ai-quick-title">You may ask</div>
+                {aiQuickOptions.map(option => (
+                  <button
+                    key={option.id}
+                    type="button"
+                    className="ai-quick-option"
+                    onClick={() => handleAiQuickOption(option)}
+                  >
+                    {option.text}
+                  </button>
+                ))}
+              </section>
+            )}
+          </div>
+          <div className="ai-input-dock" aria-label="AI 输入区">
+            <div className="ai-input-bar">
+              <input
+                value={aiInput}
+                onChange={e => setAiInput(e.target.value)}
+                onKeyDown={e => { if (e.key === 'Enter') sendAiMessage(); }}
+                placeholder="输入你的需求，例如：把首页改成 2.0 风格..."
+              />
+              <button type="button" onClick={sendAiMessage} aria-label="发送"><Send size={18} /></button>
+            </div>
+          </div>
+        </section>
+
+        <div className={`main-panels ${isAiMode ? 'is-hidden' : ''}`}>
+        {contentTab === 'home' && (
+          <section className="hero-card hero-card--center" aria-label="主界面形象">
+            <div className="main-character-wrap">
+              <div className="star-badge">★</div>
+              <img className="main-character-image" src={selectedRoleAvatar ?? homeHeroAvatar} alt="虚拟形象" />
+            </div>
+          </section>
+        )}
+
+        {contentTab === 'profile' && (
           <section className="hero-card">
             <div className="mini-avatar-card">
               <div className="mini-avatar-image-wrap">
-                <img className="mini-avatar-image" src={mainCharacterImage} alt="兔美美主页头像" />
+                <img className="mini-avatar-image" src={homeMiniAvatar} alt="兔美美主页头像" />
               </div>
               <div className="player-name">兔美美</div>
             </div>
             <div className="main-character-wrap">
               <div className="star-badge">★</div>
-              <img className="main-character-image" src={mainCharacterImage} alt="游戏角色形象" />
+              <img className="main-character-image" src={homeHeroAvatar} alt="游戏角色形象" />
             </div>
           </section>
         )}
 
-        {activeTab === 'friends' ? (
+        {contentTab === 'friends' ? (
           <section className="friends-page friends-shell" aria-label="好友页">
             <aside className="friends-rail" aria-label="好友功能">
               <button
@@ -660,7 +992,7 @@ function App() {
               )}
             </section>
           </section>
-        ) : activeTab === 'profile' ? (
+        ) : contentTab === 'profile' ? (
           <section className="home-tab-panel me-tab-panel" aria-label="个人主页页签">
             <div className="tab-handle">
               <span className="tab-indicator" />
@@ -684,7 +1016,8 @@ function App() {
                     key={game.title}
                     onClick={() => {
                       setSelectedGame(game);
-                      setToast(`准备继续游玩 ${game.title}`);
+                      setSelectedMapForDetail(continueGameDetailByTitle[game.title] ?? null);
+                      setToast(`打开详情：${game.title}`);
                     }}
                   >
                     <div className="game-cover" style={{ background: game.cover }}>
@@ -707,7 +1040,95 @@ function App() {
               <div className="recommend-grid">
                 {recommended.map(item => (
                   <article className="recommend-card" key={item.title} onClick={() => setToast(`打开推荐：${item.title}`)}>
-                    <div className="recommend-cover" style={{ background: item.cover }}>
+                    <div className="recommend-cover" style={item.coverImage ? undefined : { background: item.cover }}>
+                      {item.coverImage ? <img className="recommend-cover-image" src={item.coverImage} alt="" aria-hidden /> : null}
+                      <Zap size={24} />
+                    </div>
+                    <div>
+                      <h3>{item.title}</h3>
+                      <p>{item.desc}</p>
+                      <span>{item.metric}</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </section>
+        ) : contentTab === 'home' ? (
+          <section className="home-tab-panel home-sheet" aria-label="主界面内容">
+            <div className="tab-handle">
+              <span className="tab-indicator" />
+              <span>Home</span>
+            </div>
+
+            <div
+              ref={avatarIconRowRef}
+              className="avatar-icon-row"
+              aria-label="切换虚拟形象"
+              onClickCapture={handleAvatarIconRowClickCapture}
+              onPointerDown={handleAvatarIconDragStart}
+              onPointerMove={handleAvatarIconDragMove}
+              onPointerUp={handleAvatarIconDragEnd}
+              onPointerCancel={handleAvatarIconDragEnd}
+              onPointerLeave={handleAvatarIconDragEnd}
+            >
+              {avatarIconOptions.map(opt => (
+                <button
+                  key={opt.id}
+                  type="button"
+                  className={`avatar-icon-btn ${opt.id === selectedAvatarIconId ? 'active' : ''}`}
+                  onClick={() => setSelectedAvatarIconId(opt.id)}
+                  aria-label={`选择虚拟形象 ${opt.id}`}
+                >
+                  <img src={opt.src} alt="" />
+                </button>
+              ))}
+            </div>
+
+            <div className="toast-line">
+              <Sparkles size={15} />
+              <span>{toast}</span>
+            </div>
+
+            <section className="content-section">
+              <div className="section-heading">
+                <h2>Continue Playing</h2>
+                <button onClick={() => setToast(`${onlineCount} 位好友在线`)}>在线 {onlineCount}</button>
+              </div>
+              <div className="game-strip">
+                {continueGames.map(game => (
+                  <article
+                    className={`game-card ${selectedGame.title === game.title ? 'selected' : ''}`}
+                    key={game.title}
+                    onClick={() => {
+                      setSelectedGame(game);
+                      setSelectedMapForDetail(continueGameDetailByTitle[game.title] ?? null);
+                      setToast(`打开详情：${game.title}`);
+                    }}
+                  >
+                    <div className="game-cover" style={game.coverImage ? undefined : { background: game.cover }}>
+                      {game.coverImage ? <img className="game-cover-image" src={game.coverImage} alt="" aria-hidden /> : null}
+                      <Gamepad2 size={22} />
+                      <span>{game.tag}</span>
+                    </div>
+                    <h3>{game.title}</h3>
+                    <p>👁 {game.players}</p>
+                    <div className="progress"><span style={{ width: `${game.progress}%` }} /></div>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section className="content-section recommended-section">
+              <div className="section-heading">
+                <h2>Recommended</h2>
+                <button onClick={() => setToast('已刷新推荐内容')}>换一批</button>
+              </div>
+              <div className="recommend-grid">
+                {recommended.map(item => (
+                  <article className="recommend-card" key={item.title} onClick={() => setToast(`打开推荐：${item.title}`)}>
+                    <div className="recommend-cover" style={item.coverImage ? undefined : { background: item.cover }}>
+                      {item.coverImage ? <img className="recommend-cover-image" src={item.coverImage} alt="" aria-hidden /> : null}
                       <Zap size={24} />
                     </div>
                     <div>
@@ -830,7 +1251,9 @@ function App() {
           </section>
         )}
 
-        <nav className="bottom-nav" aria-label="主导航">
+        </div>
+
+        <nav className={`bottom-nav ${isAiMode ? 'is-hidden' : ''}`} aria-label="主导航">
           <button className={activeTab === 'home' ? 'active' : ''} onClick={() => handleTabClick('home')}><Home size={21} /><span>Home</span></button>
           <button className={activeTab === 'games' ? 'active' : ''} onClick={() => handleTabClick('games')}><Trophy size={21} /><span>Games</span></button>
           <button className="create-button" onClick={() => setShowComposer(true)} aria-label="创建"><Plus size={30} /></button>
