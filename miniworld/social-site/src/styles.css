@@ -620,6 +620,13 @@ button {
   box-shadow: 0 8px 18px rgba(245, 158, 11, 0.22);
 }
 
+.action-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+  object-fit: contain;
+}
+
 .ugc-type-pill {
   position: absolute;
   top: 462px;

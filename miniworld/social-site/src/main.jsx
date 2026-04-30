@@ -16,6 +16,11 @@ import mapCover4 from './assets/map-covers/map-cover-4.png';
 import mapCover5 from './assets/map-covers/map-cover-5.png';
 import mapCover6 from './assets/map-covers/map-cover-6.png';
 
+const svgData = svg => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+
+const playIcon = svgData(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="16" fill="#fff"/><path d="M18 14v20l17-10z" fill="#5865f2"/></svg>`);
+const remixIcon = svgData(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="16" fill="#fff"/><path d="M24 8l4.2 10.8L40 20l-9 7.6L33.8 40 24 33.2 14.2 40 17 27.6 8 20l11.8-1.2z" fill="#7c3aed"/></svg>`);
+
 const friends = [
   { name: 'Mika', avatar: avatar1, status: 'online', color: '#ffe35d' },
   { name: 'Nono', avatar: avatar2, status: 'online', color: '#a78bfa' },
@@ -418,8 +423,8 @@ function App() {
                   <img className="ugc-cover" src={map.cover} alt={`${map.title} 地图封面`} />
                   <div className="ugc-cover-shade" />
                   <div className="ugc-primary-actions">
-                    <button onClick={() => setToast(`一键开始：${map.title}`)}><Play size={15} fill="currentColor" /> 一键游戏</button>
-                    <button onClick={() => setToast(`基于 ${map.title} 开始二次创作`)}><Sparkles size={15} /> 二次创作</button>
+                    <button onClick={() => setToast(`一键开始：${map.title}`)}><img src={playIcon} alt="一键游戏" className="action-icon" /> 一键游戏</button>
+                    <button onClick={() => setToast(`基于 ${map.title} 开始二次创作`)}><img src={remixIcon} alt="二次创作" className="action-icon" /> 二次创作</button>
                   </div>
                   <div className="ugc-type-pill"><Compass size={14} /> {map.type}</div>
                   <button className="ugc-play-button" onClick={() => setToast(`开始游玩：${map.title}`)} aria-label={`游玩 ${map.title}`}><Play size={34} fill="currentColor" /></button>
