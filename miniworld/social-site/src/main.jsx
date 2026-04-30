@@ -95,6 +95,27 @@ function App() {
   const [selectedMapForDetail, setSelectedMapForDetail] = useState(null);
   const [chatInput, setChatInput] = useState('');
   const [chatMessagesByFriend, setChatMessagesByFriend] = useState(initialChatMessagesByFriend);
+  const [likedMaps, setLikedMaps] = useState(new Set());
+  const [bookmarkedMaps, setBookmarkedMaps] = useState(new Set());
+
+  const toggleLike = (title) => {
+    setLikedMaps(prev => {
+      const next = new Set(prev);
+      if (next.has(title)) next.delete(title);
+      else next.add(title);
+      return next;
+    });
+  };
+
+  const toggleBookmark = (title) => {
+    setBookmarkedMaps(prev => {
+      const next = new Set(prev);
+      if (next.has(title)) next.delete(title);
+      else next.add(title);
+      return next;
+    });
+  };
+
   const dragState = useRef({ active: false, startY: 0, scrollTop: 0 });
 
   const onlineCount = useMemo(() => friends.filter(friend => friend.status === 'online' || friend.status === 'playing').length, []);
@@ -425,14 +446,17 @@ function App() {
                   <div className="ugc-primary-actions">
                     <button className="img-action-btn" onClick={() => setToast(`一键开始：${map.title}`)} aria-label="一键游戏"><img src={playIcon} alt="一键游戏" /></button>
                     <button className="img-action-btn" onClick={() => setToast(`基于 ${map.title} 开始二次创作`)} aria-label="二次创作"><img src={remixIcon} alt="二次创作" /></button>
+                    <button className="detail-pill-btn" onClick={() => setSelectedMapForDetail(map)} aria-label="查看详情">
+                      <Compass size={14} />
+                      <span>详情</span>
+                    </button>
                   </div>
                   <div className="ugc-type-pill"><Compass size={14} /> {map.type}</div>
                   <button className="ugc-play-button" onClick={() => setToast(`开始游玩：${map.title}`)} aria-label={`游玩 ${map.title}`}><Play size={34} fill="currentColor" /></button>
                   <aside className="ugc-side-actions">
-                    <button onClick={() => setSelectedMapForDetail(map)} className="detail-action-btn"><Compass size={22} /><span>详情</span></button>
-                    <button onClick={() => setToast(`点赞 ${map.title}`)}><Heart size={22} /><span>{map.likes}</span></button>
-                    <button onClick={() => setToast(`收藏 ${map.title}`)}><Bookmark size={22} /><span>收藏</span></button>
-                    <button onClick={() => setToast(`分享 ${map.title}`)}><Share2 size={22} /><span>分享</span></button>
+                    <button onClick={() => toggleLike(map.title)} className={likedMaps.has(map.title) ? 'active' : ''} aria-label="点赞"><Heart size={22} fill={likedMaps.has(map.title) ? "#ff4757" : "none"} color={likedMaps.has(map.title) ? "#ff4757" : "currentColor"} /><span>{map.likes}</span></button>
+                    <button onClick={() => toggleBookmark(map.title)} className={bookmarkedMaps.has(map.title) ? 'active' : ''} aria-label="收藏"><Bookmark size={22} fill={bookmarkedMaps.has(map.title) ? "#ffd32a" : "none"} color={bookmarkedMaps.has(map.title) ? "#ffd32a" : "currentColor"} /></button>
+                    <button onClick={() => setToast(`分享 ${map.title}`)} aria-label="分享"><Share2 size={22} /></button>
                   </aside>
                   <div className="ugc-feed-copy">
                     <div className="creator-row">
