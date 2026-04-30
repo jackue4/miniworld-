@@ -738,10 +738,9 @@ button {
 }
 
 .detail-badge-img {
-  height: 20px;
+  height: 24px;
   width: auto;
   object-fit: contain;
-  image-rendering: auto;
 }
 
 .creator-meta p {
