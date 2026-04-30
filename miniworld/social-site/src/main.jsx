@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Bell, Gamepad2, Home, Plus, Search, Sparkles, UserRound, UsersRound, X, MessageCircle, Trophy, Zap, UserPlus, Volume2, MoreHorizontal, ArrowLeft, Send, Tags, SmilePlus, DoorOpen, Heart, Bookmark, Play, Share2, Compass, ThumbsUp } from 'lucide-react';
+import { ArrowLeft, Bell, Bookmark, Compass, DoorOpen, Gamepad2, Heart, Home, MessageCircle, MoreHorizontal, Play, Plus, Search, Send, Share2, SmilePlus, Sparkles, Tags, ThumbsUp, Trophy, UserPlus, UserRound, Users, UsersRound, Volume2, X, Zap } from 'lucide-react';
 import './styles.css';
 import mainCharacterImage from './assets/main-character.png';
 import avatar1 from './assets/avatars/avatar-1.png';
@@ -20,6 +20,11 @@ import remixIcon from './assets/icons/Frame 8508.png';
 import closeIcon from './assets/icons/Component 177.png';
 import expertBadge from './assets/icons/image 58.png';
 import communityBadge from './assets/icons/image 61.png';
+import previewVideo1 from './assets/videos/preview-1.mp4';
+import previewVideo2 from './assets/videos/preview-2.mp4';
+import previewVideo3 from './assets/videos/preview-3.mp4';
+import previewVideo4 from './assets/videos/preview-4.mp4';
+import previewVideo5 from './assets/videos/preview-5.mp4';
 
 const svgData = svg => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 
@@ -84,12 +89,12 @@ const getMapFriendActivity = title => mapFriendActivityByTitle[title] ?? {
 };
 
 const ugcMaps = [
-  { title: '云朵小镇跑酷', type: '跑酷', creator: 'Mika', avatar: avatar1, cover: mapCover1, likes: '8.6w', plays: '42.1w', comments: '1.2k', desc: '在漂浮云岛之间连续跳跃，终点藏着彩虹传送门。', tags: ['轻松', '多人', '3分钟'], difficulty: '简单' },
-  { title: '萌宠家园建造赛', type: '建造', creator: 'Nono', avatar: avatar2, cover: mapCover2, likes: '5.4w', plays: '30.8w', comments: '864', desc: '给你的萌宠搭一个梦幻家园，好友可以一起装修。', tags: ['创造', '家园', '协作'], difficulty: '休闲' },
-  { title: '废墟能量战场', type: '对抗', creator: 'Kiki', avatar: avatar3, cover: mapCover3, likes: '12.9w', plays: '88.2w', comments: '3.5k', desc: '争夺中心能量核心，占点、防守、反打都很关键。', tags: ['PVP', '组队', '热血'], difficulty: '中等' },
-  { title: '樱花列车物语', type: '剧情', creator: 'Ari', avatar: avatar4, cover: mapCover4, likes: '7.1w', plays: '51.6w', comments: '952', desc: '坐上通往樱花岛的列车，解锁沿途 NPC 的小故事。', tags: ['剧情', '探索', '治愈'], difficulty: '休闲' },
-  { title: '机关密室 24H', type: '解谜', creator: 'Ben', avatar: avatar5, cover: mapCover5, likes: '4.8w', plays: '23.7w', comments: '670', desc: '每个房间都有一个机关逻辑，适合和好友语音开黑。', tags: ['机关', '解谜', '双人'], difficulty: '困难' },
-  { title: '糖果岛派对', type: '派对', creator: 'Luna', avatar: avatar6, cover: mapCover6, likes: '9.3w', plays: '62.4w', comments: '1.8k', desc: '随机小游戏轮换，最后一名会被糖果炮弹发射出去。', tags: ['派对', '随机', '欢乐'], difficulty: '简单' },
+  { title: '云朵小镇跑酷', type: '跑酷', creator: 'Mika', avatar: avatar1, cover: mapCover1, video: previewVideo1, likes: '8.6w', plays: '42.1w', comments: '1.2k', desc: '在漂浮云岛之间连续跳跃，终点藏着彩虹传送门。', tags: ['轻松', '多人', '3分钟'], difficulty: '简单' },
+  { title: '萌宠家园建造赛', type: '建造', creator: 'Nono', avatar: avatar2, cover: mapCover2, video: previewVideo2, likes: '5.4w', plays: '30.8w', comments: '864', desc: '给你的萌宠搭一个梦幻家园，好友可以一起装修。', tags: ['创造', '家园', '协作'], difficulty: '休闲' },
+  { title: '废墟能量战场', type: '对抗', creator: 'Kiki', avatar: avatar3, cover: mapCover3, video: previewVideo3, likes: '12.9w', plays: '88.2w', comments: '3.5k', desc: '争夺中心能量核心，占点、防守、反打都很关键。', tags: ['PVP', '组队', '热血'], difficulty: '中等' },
+  { title: '樱花列车物语', type: '剧情', creator: 'Ari', avatar: avatar4, cover: mapCover4, video: previewVideo4, likes: '7.1w', plays: '51.6w', comments: '952', desc: '坐上通往樱花岛的列车，解锁沿途 NPC 的小故事。', tags: ['剧情', '探索', '治愈'], difficulty: '休闲' },
+  { title: '机关密室 24H', type: '解谜', creator: 'Ben', avatar: avatar5, cover: mapCover5, video: previewVideo5, likes: '4.8w', plays: '23.7w', comments: '670', desc: '每个房间都有一个机关逻辑，适合和好友语音开黑。', tags: ['机关', '解谜', '双人'], difficulty: '困难' },
+  { title: '糖果岛派对', type: '派对', creator: 'Luna', avatar: avatar6, cover: mapCover6, video: previewVideo1, likes: '9.3w', plays: '62.4w', comments: '1.8k', desc: '随机小游戏轮换，最后一名会被糖果炮弹发射出去。', tags: ['派对', '随机', '欢乐'], difficulty: '简单' },
 ];
 
 const feedTabs = ['Following', 'For You', 'Explore', 'New'];
@@ -106,6 +111,19 @@ const recommended = [
   { title: '萌宠冒险岛', desc: '收集伙伴并完成每日任务', metric: '好友在玩', cover: 'linear-gradient(135deg, #fef3c7, #f97316 45%, #22c55e)' },
 ];
 
+const friendDirectoryTags = ['全部好友', '王者荣耀', '王者荣耀世界', '王者万'];
+
+const socialGroups = [
+  { title: '恋爱 💞 交友', count: '6690人', cover: 'linear-gradient(135deg, rgba(251, 113, 133, 0.32), rgba(251, 191, 36, 0.22))', badge: '新群' },
+  { title: '快来谈恋爱 💞', count: '1865人', cover: 'linear-gradient(135deg, rgba(96, 165, 250, 0.28), rgba(167, 139, 250, 0.26))', badge: '新群' },
+  { title: '召唤师大本营', count: '10万人+', cover: 'linear-gradient(135deg, rgba(34, 197, 94, 0.22), rgba(34, 211, 238, 0.18))' },
+  { title: '峡谷互助小组', count: '10万人+', cover: 'linear-gradient(135deg, rgba(245, 158, 11, 0.22), rgba(236, 72, 153, 0.14))' },
+  { title: '福利互助群 💕', count: '10万人+', cover: 'linear-gradient(135deg, rgba(248, 113, 113, 0.18), rgba(59, 130, 246, 0.14))' },
+  { title: '星光游乐园', count: '10万人+', cover: 'linear-gradient(135deg, rgba(99, 102, 241, 0.22), rgba(16, 185, 129, 0.16))' },
+  { title: '夏茗资讯站', count: '', cover: 'linear-gradient(135deg, rgba(148, 163, 184, 0.18), rgba(59, 130, 246, 0.12))' },
+  { title: '东北聚集地', count: '', cover: 'linear-gradient(135deg, rgba(251, 146, 60, 0.18), rgba(34, 211, 238, 0.12))' },
+];
+
 function App() {
   const [activeTab, setActiveTab] = useState('home');
   const [selectedGame, setSelectedGame] = useState(continueGames[0]);
@@ -118,6 +136,12 @@ function App() {
   const [likedMaps, setLikedMaps] = useState(new Set());
   const [bookmarkedMaps, setBookmarkedMaps] = useState(new Set());
   const [followedCreators, setFollowedCreators] = useState(new Set());
+  const [friendsSection, setFriendsSection] = useState('directory'); // directory | messages | social | groups
+  const [directoryTag, setDirectoryTag] = useState(friendDirectoryTags[0]);
+  const [playingPreview, setPlayingPreview] = useState(null);
+  const previewVideoRefs = useRef({});
+  const [pauseFlash, setPauseFlash] = useState(null);
+  const pauseFlashTimerRef = useRef(null);
 
   const toggleFollow = (creator) => {
     setFollowedCreators(prev => {
@@ -148,8 +172,32 @@ function App() {
 
   const dragState = useRef({ active: false, startY: 0, scrollTop: 0 });
 
-  const onlineCount = useMemo(() => friends.filter(friend => friend.status === 'online' || friend.status === 'playing').length, []);
+  const onlineFriends = useMemo(
+    () => friends.filter(friend => friend.status === 'online' || friend.status === 'playing'),
+    []
+  );
+  const onlineCount = onlineFriends.length;
   const currentChatMessages = selectedFriend ? chatMessagesByFriend[selectedFriend.name] ?? [] : [];
+
+  const nameCollator = useMemo(() => {
+    try {
+      return new Intl.Collator(['zh-Hans-CN', 'zh-CN', 'en'], { sensitivity: 'base' });
+    } catch {
+      return new Intl.Collator(undefined, { sensitivity: 'base' });
+    }
+  }, []);
+
+  const friendDirectoryGroups = useMemo(() => {
+    const sorted = [...friendMessages].sort((a, b) => nameCollator.compare(a.name, b.name));
+    const groups = new Map();
+    sorted.forEach(friend => {
+      const first = friend.name?.trim()?.[0] ?? '#';
+      const letter = /[A-Za-z]/.test(first) ? first.toUpperCase() : '#';
+      if (!groups.has(letter)) groups.set(letter, []);
+      groups.get(letter).push(friend);
+    });
+    return Array.from(groups.entries()).sort((a, b) => a[0].localeCompare(b[0]));
+  }, [nameCollator]);
 
   const handleFriendClick = friend => {
     setToast(`${friend.name} ${friend.status === 'playing' ? '正在游戏中，可申请加入' : '在线，可以发起聊天'}`);
@@ -159,6 +207,10 @@ function App() {
     setActiveTab(tab);
     if (tab !== 'friends') {
       setSelectedFriend(null);
+    }
+    if (tab === 'friends') {
+      setFriendsSection('directory');
+      setDirectoryTag(friendDirectoryTags[0]);
     }
     const labels = { home: '首页动态', games: '游戏大厅', create: '创建内容', friends: '好友列表', profile: '个人主页' };
     setToast(`已切换到${labels[tab]}`);
@@ -213,6 +265,40 @@ function App() {
     setToast('已创建房间并发送邀请');
   };
 
+  const togglePreviewVideo = title => {
+    const currentVideo = previewVideoRefs.current[title];
+    if (!currentVideo) return;
+
+    Object.entries(previewVideoRefs.current).forEach(([videoTitle, video]) => {
+      if (videoTitle !== title && video) video.pause();
+    });
+
+    if (playingPreview === title && !currentVideo.paused) {
+      currentVideo.pause();
+      setPlayingPreview(null);
+      return;
+    }
+
+    currentVideo.play()
+      .then(() => {
+        setPlayingPreview(title);
+        setToast(`播放预览：${title}`);
+      })
+      .catch(() => {
+        setToast('视频暂时无法播放，请稍后再试');
+      });
+  };
+
+  const pausePreviewVideo = title => {
+    const currentVideo = previewVideoRefs.current[title];
+    if (!currentVideo || currentVideo.paused) return;
+    currentVideo.pause();
+    setPlayingPreview(null);
+    setPauseFlash(title);
+    if (pauseFlashTimerRef.current) clearTimeout(pauseFlashTimerRef.current);
+    pauseFlashTimerRef.current = setTimeout(() => setPauseFlash(null), 600);
+  };
+
   return (
     <main className="app-shell">
       <section className={`phone-frame ${activeTab === 'friends' ? 'friends-mode' : ''} ${activeTab === 'home' ? 'feed-mode' : ''}`}>
@@ -231,170 +317,329 @@ function App() {
         </header>
 
         {activeTab === 'profile' && (
-          <>
-            <section className="hero-card">
-              <div className="mini-avatar-card">
-                <div className="mini-avatar-image-wrap">
-                  <img className="mini-avatar-image" src={mainCharacterImage} alt="兔美美主页头像" />
-                </div>
-                <div className="player-name">兔美美</div>
+          <section className="hero-card">
+            <div className="mini-avatar-card">
+              <div className="mini-avatar-image-wrap">
+                <img className="mini-avatar-image" src={mainCharacterImage} alt="兔美美主页头像" />
               </div>
-              <div className="main-character-wrap">
-                <div className="star-badge">★</div>
-                <img className="main-character-image" src={mainCharacterImage} alt="游戏角色形象" />
-              </div>
-            </section>
-
-            <section className="friends-row" aria-label="在线好友">
-              {friends.map(friend => (
-                <button className="friend" key={friend.name} onClick={() => handleFriendClick(friend)}>
-                  <span className="friend-avatar" style={{ background: friend.color }}>
-                    <img src={friend.avatar} alt={`${friend.name} 头像`} />
-                  </span>
-                  <span className={`status-dot ${friend.status}`} />
-                </button>
-              ))}
-            </section>
-          </>
+              <div className="player-name">兔美美</div>
+            </div>
+            <div className="main-character-wrap">
+              <div className="star-badge">★</div>
+              <img className="main-character-image" src={mainCharacterImage} alt="游戏角色形象" />
+            </div>
+          </section>
         )}
 
         {activeTab === 'friends' ? (
-          <section className="friends-page" aria-label="好友列表页">
-            {selectedFriend ? (
-              <section className="chat-page" aria-label="私聊界面">
-                <div className="chat-header">
-                  <button aria-label="返回好友列表" onClick={() => setSelectedFriend(null)}><ArrowLeft size={20} /></button>
-                  <span className="message-avatar-wrap compact">
-                    <img src={selectedFriend.avatar} alt={`${selectedFriend.name} 头像`} />
-                    <span className={`message-status ${selectedFriend.status}`} />
-                  </span>
-                  <div>
-                    <h1>{selectedFriend.name}</h1>
-                    <p>{selectedFriend.title}</p>
-                  </div>
-                </div>
+          <section className="friends-page friends-shell" aria-label="好友页">
+            <aside className="friends-rail" aria-label="好友功能">
+              <button
+                type="button"
+                className={`friends-rail-item ${friendsSection === 'directory' ? 'active' : ''}`}
+                onClick={() => {
+                  setFriendsSection('directory');
+                  setSelectedFriend(null);
+                }}
+                aria-label="好友目录"
+              >
+                <Users size={20} />
+              </button>
+              <button
+                type="button"
+                className={`friends-rail-item ${friendsSection === 'messages' ? 'active' : ''}`}
+                onClick={() => setFriendsSection('messages')}
+                aria-label="私聊消息"
+              >
+                <MessageCircle size={20} />
+                <span className="friends-rail-badge">3</span>
+              </button>
+              <button
+                type="button"
+                className={`friends-rail-item ${friendsSection === 'social' ? 'active' : ''}`}
+                onClick={() => {
+                  setFriendsSection('social');
+                  setSelectedFriend(null);
+                }}
+                aria-label="社交圈"
+              >
+                <Compass size={20} />
+              </button>
+              <button
+                type="button"
+                className={`friends-rail-item ${friendsSection === 'groups' ? 'active' : ''}`}
+                onClick={() => {
+                  setFriendsSection('groups');
+                  setSelectedFriend(null);
+                }}
+                aria-label="添加群组"
+              >
+                <UserPlus size={20} />
+              </button>
+            </aside>
 
-                <div
-                  className="chat-scroll-area drag-scroll-area"
-                  onMouseDown={handleDragStart}
-                  onMouseMove={handleDragMove}
-                  onMouseUp={handleDragEnd}
-                  onMouseLeave={handleDragEnd}
-                >
-                  {currentChatMessages.map((message, index) => (
-                    <div className={`chat-row ${message.from === 'me' ? 'mine' : 'theirs'}`} key={`${message.type}-${index}`}>
-                      {message.from !== 'me' && <img className="chat-avatar" src={selectedFriend.avatar} alt={`${selectedFriend.name} 头像`} />}
-                      <div className={`chat-bubble ${message.type}`}>
-                        {message.type === 'invite' ? (
-                          <div className="game-invite-card">
-                            <div className="invite-cover"><span>?</span></div>
-                            <div className="invite-info">
-                              <p><strong>{message.host}</strong> 邀请你加入房间</p>
-                              <p>房间名：<b>{message.roomName}</b></p>
-                              <p>房间号：<em>{message.roomId}</em></p>
-                              <p>人数：<em>{message.players}</em></p>
-                              <p>版本号：<strong>{message.version}</strong></p>
-                              <small>(对方游戏版本过低，请提醒对方更新游戏)</small>
-                              <button onClick={() => setToast(`加入房间 ${message.roomId}`)}>加入房间</button>
-                            </div>
-                          </div>
-                        ) : (
-                          <>
-                            <span>{message.text}</span>
-                            <small>{message.time}</small>
-                          </>
-                        )}
+            <section className="friends-main" aria-label="好友内容区">
+              {friendsSection === 'messages' ? (
+                selectedFriend ? (
+                  <section className="chat-page" aria-label="私聊界面">
+                    <div className="chat-header">
+                      <button aria-label="返回好友列表" onClick={() => setSelectedFriend(null)}><ArrowLeft size={20} /></button>
+                      <span className="message-avatar-wrap compact">
+                        <img src={selectedFriend.avatar} alt={`${selectedFriend.name} 头像`} />
+                        <span className={`message-status ${selectedFriend.status}`} />
+                      </span>
+                      <div>
+                        <h1>{selectedFriend.name}</h1>
+                        <p>{selectedFriend.title}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
 
-                <div className="quick-action-row">
-                  <button onClick={createGameRoom}><DoorOpen size={15} /> 创建房间</button>
-                  <button onClick={sendGameInvite}><Gamepad2 size={15} /> 发送邀请</button>
-                </div>
-
-                <div className="quick-tags">
-                  {quickTags.map(tag => <button key={tag} onClick={() => sendTagMessage(tag)}><Tags size={13} /> {tag}</button>)}
-                </div>
-
-                <div className="chat-input-bar">
-                  <button onClick={() => sendTagMessage('表情: 开心') } aria-label="发送表情"><SmilePlus size={19} /></button>
-                  <input
-                    value={chatInput}
-                    onChange={event => setChatInput(event.target.value)}
-                    onKeyDown={event => { if (event.key === 'Enter') sendTextMessage(); }}
-                    placeholder="给好友发送消息..."
-                  />
-                  <button onClick={sendTextMessage} aria-label="发送"><Send size={19} /></button>
-                </div>
-              </section>
-            ) : (
-              <>
-                <div className="friends-page-header">
-                  <div>
-                    <p>Messages</p>
-                    <h1>好友</h1>
-                  </div>
-                  <button aria-label="添加好友" onClick={() => setToast('打开添加好友入口')}><UserPlus size={21} /></button>
-                </div>
-
-                <div className="friends-search-row">
-                  <div className="friends-search"><Search size={17} /><span>搜索好友或房间</span></div>
-                  <button onClick={() => setToast('打开添加好友入口')}><UserPlus size={16} /> Add Friends</button>
-                </div>
-
-                <div
-                  className="friends-scroll-area drag-scroll-area"
-                  onMouseDown={handleDragStart}
-                  onMouseMove={handleDragMove}
-                  onMouseUp={handleDragEnd}
-                  onMouseLeave={handleDragEnd}
-                >
-                  <article className="party-card">
-                    <div className="party-stack">
-                      {friendMessages.slice(0, 3).map(friend => (
-                        <img key={friend.name} src={friend.avatar} alt={`${friend.name} 头像`} />
+                    <div
+                      className="chat-scroll-area drag-scroll-area"
+                      onMouseDown={handleDragStart}
+                      onMouseMove={handleDragMove}
+                      onMouseUp={handleDragEnd}
+                      onMouseLeave={handleDragEnd}
+                    >
+                      {currentChatMessages.map((message, index) => (
+                        <div className={`chat-row ${message.from === 'me' ? 'mine' : 'theirs'}`} key={`${message.type}-${index}`}>
+                          {message.from !== 'me' && <img className="chat-avatar" src={selectedFriend.avatar} alt={`${selectedFriend.name} 头像`} />}
+                          <div className={`chat-bubble ${message.type}`}>
+                            {message.type === 'invite' ? (
+                              <div className="game-invite-card">
+                                <div className="invite-cover"><span>?</span></div>
+                                <div className="invite-info">
+                                  <p><strong>{message.host}</strong> 邀请你加入房间</p>
+                                  <p>房间名：<b>{message.roomName}</b></p>
+                                  <p>房间号：<em>{message.roomId}</em></p>
+                                  <p>人数：<em>{message.players}</em></p>
+                                  <p>版本号：<strong>{message.version}</strong></p>
+                                  <small>(对方游戏版本过低，请提醒对方更新游戏)</small>
+                                  <button onClick={() => setToast(`加入房间 ${message.roomId}`)}>加入房间</button>
+                                </div>
+                              </div>
+                            ) : (
+                              <>
+                                <span>{message.text}</span>
+                                <small>{message.time}</small>
+                              </>
+                            )}
+                          </div>
+                        </div>
                       ))}
                     </div>
-                    <div className="party-info">
-                      <h2>派对大厅、Ty1ermmz 和其他用户</h2>
-                      <span>常规</span>
+
+                    <div className="quick-action-row">
+                      <button onClick={createGameRoom}><DoorOpen size={15} /> 创建房间</button>
+                      <button onClick={sendGameInvite}><Gamepad2 size={15} /> 发送邀请</button>
                     </div>
-                    <button aria-label="语音"><Volume2 size={18} /></button>
-                  </article>
 
-                  <div className="friend-message-list">
-                    {friendMessages.map(friend => {
-                      const messages = chatMessagesByFriend[friend.name] ?? [];
-                      const lastMessage = messages[messages.length - 1];
-                      const previewText = lastMessage?.type === 'invite' ? '您: [游戏房间邀请]' : `${lastMessage?.from === 'me' ? '您: ' : ''}${lastMessage?.text ?? friend.message}`;
+                    <div className="quick-tags">
+                      {quickTags.map(tag => <button key={tag} onClick={() => sendTagMessage(tag)}><Tags size={13} /> {tag}</button>)}
+                    </div>
 
-                      return (
-                        <button className="friend-message-item" key={friend.name} onClick={() => setSelectedFriend(friend)}>
-                          <span className="message-avatar-wrap">
+                    <div className="chat-input-bar">
+                      <button onClick={() => sendTagMessage('表情: 开心') } aria-label="发送表情"><SmilePlus size={19} /></button>
+                      <input
+                        value={chatInput}
+                        onChange={event => setChatInput(event.target.value)}
+                        onKeyDown={event => { if (event.key === 'Enter') sendTextMessage(); }}
+                        placeholder="给好友发送消息..."
+                      />
+                      <button onClick={sendTextMessage} aria-label="发送"><Send size={19} /></button>
+                    </div>
+                  </section>
+                ) : (
+                  <div className="friends-list-layout" aria-label="私聊消息列表">
+                    <div className="friends-page-header">
+                      <div>
+                        <p>Messages</p>
+                        <h1>聊天</h1>
+                      </div>
+                      <button aria-label="添加好友" onClick={() => setToast('打开添加好友入口')}><UserPlus size={21} /></button>
+                    </div>
+
+                    <div className="friends-search-row">
+                      <div className="friends-search"><Search size={17} /><span>搜索好友或房间</span></div>
+                      <button onClick={() => setToast('打开添加好友入口')}><UserPlus size={16} /> Add Friends</button>
+                    </div>
+
+                    <section className="friends-row friends-row-in-page" aria-label="在线好友">
+                      {onlineFriends.map(friend => (
+                        <button
+                          className="friend"
+                          key={friend.name}
+                          type="button"
+                          onClick={() => {
+                            const full = friendMessages.find(f => f.name === friend.name);
+                            if (full) setSelectedFriend(full);
+                            else handleFriendClick(friend);
+                          }}
+                        >
+                          <span className="friend-avatar" style={{ background: friend.color }}>
                             <img src={friend.avatar} alt={`${friend.name} 头像`} />
-                            <span className={`message-status ${friend.status}`} />
                           </span>
-                          <span className="message-copy">
-                            <span className="message-title-row">
-                              <strong>{friend.name}</strong>
-                              <em>{friend.activity}</em>
-                            </span>
-                            <span className="message-subtitle">{friend.title}</span>
-                            <span className="message-text">{previewText}</span>
-                          </span>
-                          <span className="message-meta">
-                            <span>{lastMessage?.time ?? friend.time}</span>
-                            {friend.unread > 0 ? <b>{friend.unread}</b> : <MoreHorizontal size={18} />}
-                          </span>
+                          <span className={`status-dot ${friend.status}`} />
                         </button>
-                      );
-                    })}
+                      ))}
+                    </section>
+
+                    <div
+                      className="friends-scroll-area drag-scroll-area"
+                      onMouseDown={handleDragStart}
+                      onMouseMove={handleDragMove}
+                      onMouseUp={handleDragEnd}
+                      onMouseLeave={handleDragEnd}
+                    >
+                      <article className="party-card">
+                        <div className="party-stack">
+                          {friendMessages.slice(0, 3).map(friend => (
+                            <img key={friend.name} src={friend.avatar} alt={`${friend.name} 头像`} />
+                          ))}
+                        </div>
+                        <div className="party-info">
+                          <h2>派对大厅、Ty1ermmz 和其他用户</h2>
+                          <span>常规</span>
+                        </div>
+                        <button aria-label="语音"><Volume2 size={18} /></button>
+                      </article>
+
+                      <div className="friend-message-list">
+                        {friendMessages.map(friend => {
+                          const messages = chatMessagesByFriend[friend.name] ?? [];
+                          const lastMessage = messages[messages.length - 1];
+                          const previewText = lastMessage?.type === 'invite' ? '您: [游戏房间邀请]' : `${lastMessage?.from === 'me' ? '您: ' : ''}${lastMessage?.text ?? friend.message}`;
+
+                          return (
+                            <button className="friend-message-item" key={friend.name} onClick={() => setSelectedFriend(friend)}>
+                              <span className="message-avatar-wrap">
+                                <img src={friend.avatar} alt={`${friend.name} 头像`} />
+                                <span className={`message-status ${friend.status}`} />
+                              </span>
+                              <span className="message-copy">
+                                <span className="message-title-row">
+                                  <strong>{friend.name}</strong>
+                                  <em>{friend.activity}</em>
+                                </span>
+                                <span className="message-subtitle">{friend.title}</span>
+                                <span className="message-text">{previewText}</span>
+                              </span>
+                              <span className="message-meta">
+                                <span>{lastMessage?.time ?? friend.time}</span>
+                                {friend.unread > 0 ? <b>{friend.unread}</b> : <MoreHorizontal size={18} />}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </>
-            )}
+                )
+              ) : friendsSection === 'social' ? (
+                <section className="social-page" aria-label="社交圈">
+                  <div className="social-hero">
+                    <div className="social-hero-copy">
+                      <h1>发现群聊</h1>
+                      <p>推荐 · 开黑 · 交友 · 赛事</p>
+                    </div>
+                  </div>
+                  <div className="social-tabs" aria-label="社交圈分类">
+                    {['推荐', '开黑', '交友', '赛事', '聊天摸鱼'].map(tab => (
+                      <button key={tab} className={tab === '推荐' ? 'active' : ''} type="button">{tab}</button>
+                    ))}
+                  </div>
+                  <div className="social-grid" aria-label="群组推荐列表">
+                    {socialGroups.map(group => (
+                      <button key={group.title} type="button" className="social-card" onClick={() => setToast(`打开群组：${group.title}`)}>
+                        <div className="social-card-cover" style={{ background: group.cover }}>
+                          {group.badge && <span className="social-badge">{group.badge}</span>}
+                        </div>
+                        <div className="social-card-meta">
+                          <strong>{group.title}</strong>
+                          {group.count && <span>{group.count}</span>}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </section>
+              ) : friendsSection === 'groups' ? (
+                <section className="groups-page" aria-label="添加群组">
+                  <div className="friends-page-header">
+                    <div>
+                      <p>Groups</p>
+                      <h1>添加群组</h1>
+                    </div>
+                    <button aria-label="搜索群组" onClick={() => setToast('搜索群组')}><Search size={20} /></button>
+                  </div>
+                  <div className="friends-search-row">
+                    <div className="friends-search"><Search size={17} /><span>搜索群组或ID</span></div>
+                    <button onClick={() => setToast('创建群组')}><Plus size={16} /> 创建</button>
+                  </div>
+                  <div className="groups-empty">
+                    <p>这里先做占位：后续可以接「推荐群组 / 最近浏览 / 创建群组 / 扫码加入」。</p>
+                    <button type="button" onClick={() => setToast('打开群组推荐')}>查看推荐群组</button>
+                  </div>
+                </section>
+              ) : (
+                <section className="directory-page" aria-label="好友目录">
+                  <div className="friends-page-header">
+                    <div>
+                      <p>Contacts</p>
+                      <h1>联系人</h1>
+                    </div>
+                    <button aria-label="搜索联系人" onClick={() => setToast('搜索联系人')}><Search size={20} /></button>
+                  </div>
+                  <div className="friends-search-row">
+                    <div className="friends-search"><Search size={17} /><span>搜索好友</span></div>
+                    <button onClick={() => setToast('好友申请')}><UserPlus size={16} /> 好友申请</button>
+                  </div>
+                  <div className="directory-tags" aria-label="好友分组">
+                    {friendDirectoryTags.map(tag => (
+                      <button
+                        type="button"
+                        key={tag}
+                        className={tag === directoryTag ? 'active' : ''}
+                        onClick={() => setDirectoryTag(tag)}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                  <div
+                    className="directory-scroll drag-scroll-area"
+                    onMouseDown={handleDragStart}
+                    onMouseMove={handleDragMove}
+                    onMouseUp={handleDragEnd}
+                    onMouseLeave={handleDragEnd}
+                    aria-label="联系人列表"
+                  >
+                    {friendDirectoryGroups.map(([letter, entries]) => (
+                      <section key={letter} className="directory-group" aria-label={`分组 ${letter}`}>
+                        <div className="directory-letter">{letter}</div>
+                        {entries.map(friend => (
+                          <button
+                            key={friend.name}
+                            type="button"
+                            className="directory-item"
+                            onClick={() => {
+                              setFriendsSection('messages');
+                              setSelectedFriend(friend);
+                            }}
+                          >
+                            <img src={friend.avatar} alt={`${friend.name} 头像`} />
+                            <span className="directory-item-copy">
+                              <strong>{friend.name}</strong>
+                              <em>{friend.title}</em>
+                            </span>
+                            <span className="directory-item-meta">{friend.time}</span>
+                          </button>
+                        ))}
+                      </section>
+                    ))}
+                  </div>
+                </section>
+              )}
+            </section>
           </section>
         ) : activeTab === 'profile' ? (
           <section className="home-tab-panel me-tab-panel" aria-label="个人主页页签">
@@ -470,8 +715,33 @@ function App() {
               onMouseLeave={handleDragEnd}
             >
               {ugcMaps.map((map, index) => (
-                <article className="ugc-feed-card" key={map.title}>
-                  <img className="ugc-cover" src={map.cover} alt={`${map.title} 地图封面`} />
+                <article
+                  className={`ugc-feed-card ${playingPreview === map.title ? 'is-playing' : ''} ${pauseFlash === map.title ? 'show-pause-flash' : ''}`}
+                  key={map.title}
+                >
+                  <video
+                    className="ugc-cover ugc-preview-video"
+                    ref={element => {
+                      if (element) previewVideoRefs.current[map.title] = element;
+                      else delete previewVideoRefs.current[map.title];
+                    }}
+                    src={map.video}
+                    poster={map.cover}
+                    preload="metadata"
+                    playsInline
+                    muted
+                    loop
+                    onClick={() => {
+                      if (playingPreview === map.title) pausePreviewVideo(map.title);
+                    }}
+                    onEnded={() => setPlayingPreview(null)}
+                    onPause={() => {
+                      if (playingPreview === map.title) setPlayingPreview(null);
+                    }}
+                  />
+                  <div className="ugc-pause-flash" aria-hidden>
+                    <span className="preview-pause-icon" />
+                  </div>
                   <div className="ugc-cover-shade" />
                   <div className="ugc-primary-actions">
                     <button className="img-action-btn" onClick={() => setToast(`一键开始：${map.title}`)} aria-label="一键游戏"><img src={playIcon} alt="一键游戏" /></button>
@@ -482,7 +752,13 @@ function App() {
                     </button>
                   </div>
                   <div className="ugc-type-pill"><Compass size={14} /> {map.type}</div>
-                  <button className="ugc-play-button" onClick={() => setToast(`开始游玩：${map.title}`)} aria-label={`游玩 ${map.title}`}><Play size={34} fill="currentColor" /></button>
+                  <button
+                    className="ugc-play-button"
+                    onClick={() => togglePreviewVideo(map.title)}
+                    aria-label={`播放 ${map.title} 预览`}
+                  >
+                    <Play size={34} fill="currentColor" />
+                  </button>
                   <aside className="ugc-side-actions">
                     <button onClick={() => toggleLike(map.title)} className={likedMaps.has(map.title) ? 'active' : ''} aria-label="点赞"><Heart size={22} fill={likedMaps.has(map.title) ? "#ff4757" : "none"} color={likedMaps.has(map.title) ? "#ff4757" : "currentColor"} /><span>{map.likes}</span></button>
                     <button onClick={() => toggleBookmark(map.title)} className={bookmarkedMaps.has(map.title) ? 'active' : ''} aria-label="收藏"><Bookmark size={22} fill={bookmarkedMaps.has(map.title) ? "#ffd32a" : "none"} color={bookmarkedMaps.has(map.title) ? "#ffd32a" : "currentColor"} /></button>
@@ -530,23 +806,28 @@ function App() {
             <section className="map-detail-page">
               <header className="detail-header">
                 <div className="creator-info-large">
-                  <img src={selectedMapForDetail.avatar} alt={selectedMapForDetail.creator} />
+                  <img className="detail-creator-avatar" src={selectedMapForDetail.avatar} alt={selectedMapForDetail.creator} />
                   <div className="creator-meta">
                     <div className="creator-name-row">
-                      <strong>{selectedMapForDetail.creator}</strong>
-                      <img src={expertBadge} className="detail-badge-img" alt="进阶高手" />
-                      <img src={communityBadge} className="detail-badge-img" alt="社区优秀创作者" />
+                      <strong className="detail-creator-name">{selectedMapForDetail.creator}</strong>
+                      <span className="detail-badge-wrap">
+                        <img src={expertBadge} className="detail-badge-img" alt="进阶高手" />
+                        <img src={communityBadge} className="detail-badge-img" alt="社区优秀创作者" />
+                      </span>
                     </div>
-                    <p>113粉丝 · 132作品</p>
+                    <p className="detail-creator-stats">113粉丝 · 132作品</p>
                   </div>
                 </div>
-                <button 
-                  className={`detail-follow-btn ${followedCreators.has(selectedMapForDetail.creator) ? 'followed' : ''}`}
-                  onClick={() => toggleFollow(selectedMapForDetail.creator)}
-                >
-                  {followedCreators.has(selectedMapForDetail.creator) ? '已关注' : '关注'}
-                </button>
-                <button className="detail-close-btn" onClick={() => setSelectedMapForDetail(null)} aria-label="关闭"><img src={closeIcon} alt="关闭" /></button>
+                <div className="detail-header-actions">
+                  <button 
+                    type="button"
+                    className={`detail-follow-btn ${followedCreators.has(selectedMapForDetail.creator) ? 'followed' : ''}`}
+                    onClick={() => toggleFollow(selectedMapForDetail.creator)}
+                  >
+                    {followedCreators.has(selectedMapForDetail.creator) ? '已关注' : '关注'}
+                  </button>
+                  <button type="button" className="detail-close-btn" onClick={() => setSelectedMapForDetail(null)} aria-label="关闭"><img src={closeIcon} alt="关闭" /></button>
+                </div>
               </header>
 
               <div
