@@ -839,14 +839,27 @@ button {
   color: #6b7280;
 }
 
-.detail-primary-actions {
+.detail-actions-sticky {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  padding: 16px;
+  border-top: 1px solid #f3f4f6;
+  z-index: 50;
+  height: auto;
+}
+
+.detail-primary-actions-full {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 12px;
-  margin-bottom: 30px;
+  width: 100%;
 }
 
-.detail-primary-actions button {
+.detail-primary-actions-full button,
+.detail-primary-actions-full .btn-play {
   height: 48px;
   border-radius: 12px;
   display: flex;
@@ -857,25 +870,7 @@ button {
   font-size: 15px;
 }
 
-.btn-copy {
-  background: #0084ff;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-copy small {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: rgba(0,0,0,0.2);
-  padding: 2px 8px;
-  font-size: 9px;
-  border-bottom-left-radius: 8px;
-}
-
 .btn-play {
-  flex: 1.5;
   background: none;
   padding: 0;
   display: flex;

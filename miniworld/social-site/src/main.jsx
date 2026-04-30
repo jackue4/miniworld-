@@ -546,13 +546,6 @@ function App() {
                   <div className="stat-item"><strong>19.5h</strong><span>创作时长</span></div>
                 </div>
 
-                <div className="detail-primary-actions">
-                  <button className="btn-copy"><span>📦</span> 复制项目 <small>完全开源</small></button>
-                  <a href="https://apps.apple.com/cn/app/%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C/id1170455562" target="_blank" rel="noopener noreferrer" className="btn-play">
-                    <img src={playIcon} alt="试玩" />
-                  </a>
-                </div>
-
                 <div className="detail-description">
                   <h2>{selectedMapForDetail.title}</h2>
                   <p className="publish-date">发布于 2022-12-22</p>
@@ -572,16 +565,17 @@ function App() {
                     {selectedMapForDetail.tags.map(t => <span key={t}>#{t}</span>)}
                   </div>
                 </div>
+
+                {/* 占位空间 */}
+                <div style={{ height: '120px' }}></div>
               </div>
 
-              <footer className="detail-bottom-bar">
-                <button className="more-btn"><MoreHorizontal size={20} /></button>
-                <div className="comment-input-placeholder">
-                  <span>说点什么...</span>
-                </div>
-                <div className="bottom-stats">
-                  <button><Heart size={20} /> 10w</button>
-                  <button><MessageCircle size={20} /> 10w+</button>
+              <footer className="detail-bottom-bar detail-actions-sticky">
+                <div className="detail-primary-actions-full">
+                  <button className="btn-copy"><span>📦</span> 复制项目 <small>完全开源</small></button>
+                  <a href="https://apps.apple.com/cn/app/%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C/id1170455562" target="_blank" rel="noopener noreferrer" className="btn-play">
+                    <img src={playIcon} alt="试玩" />
+                  </a>
                 </div>
               </footer>
             </section>
