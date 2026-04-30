@@ -418,6 +418,7 @@ function App() {
   const [lastNonAiTab, setLastNonAiTab] = useState('home');
   const [language, setLanguage] = useState('zh');
   const [selectedGame, setSelectedGame] = useState(continueGames[0]);
+  const [activeFeedIndex, setActiveFeedIndex] = useState(0);
   const [showComposer, setShowComposer] = useState(false);
   const [toast, setToast] = useState('欢迎回来，继续你的创造旅程');
   const [aiInput, setAiInput] = useState('');
@@ -436,6 +437,7 @@ function App() {
   const [directoryTag, setDirectoryTag] = useState(friendDirectoryTags[0]);
   const [playingPreview, setPlayingPreview] = useState(null);
   const previewVideoRefs = useRef({});
+  const ugcFeedScrollRef = useRef(null);
   const [pauseFlash, setPauseFlash] = useState(null);
   const pauseFlashTimerRef = useRef(null);
 
@@ -813,7 +815,8 @@ function App() {
     setToast(language === 'en' ? 'Room created and invite sent' : '已创建房间并发送邀请');
   };
 
-  const togglePreviewVideo = title => {
+  const togglePreviewVideo = (title, index) => {
+    if (typeof index === 'number') setActiveFeedIndex(index);
     const currentVideo = previewVideoRefs.current[title];
     if (!currentVideo) return;
 
@@ -827,6 +830,9 @@ function App() {
       return;
     }
 
+    try {
+      currentVideo.load?.();
+    } catch {}
     currentVideo.play()
       .then(() => {
         setPlayingPreview(title);
@@ -853,6 +859,39 @@ function App() {
 
   const isAiMode = activeTab === 'ai';
   const contentTab = isAiMode ? lastNonAiTab : activeTab;
+
+  useEffect(() => {
+    if (contentTab !== 'games') return;
+    const el = ugcFeedScrollRef.current;
+    if (!el) return;
+
+    let raf = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const h = el.clientHeight || 1;
+        const idx = Math.max(0, Math.min(ugcMaps.length - 1, Math.round(el.scrollTop / h)));
+        setActiveFeedIndex(idx);
+      });
+    };
+
+    onScroll();
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener('scroll', onScroll);
+    };
+  }, [contentTab]);
+
+  useEffect(() => {
+    // When the visible card changes, stop any playing preview.
+    const active = ugcMaps[activeFeedIndex]?.title;
+    if (!active) return;
+    if (playingPreview && playingPreview !== active) {
+      try { previewVideoRefs.current[playingPreview]?.pause?.(); } catch {}
+      setPlayingPreview(null);
+    }
+  }, [activeFeedIndex, playingPreview]);
 
   return (
     <main className="app-shell">
@@ -1440,6 +1479,7 @@ function App() {
             </div>
 
             <div
+              ref={ugcFeedScrollRef}
               className="ugc-feed-scroll drag-scroll-area"
               onMouseDown={handleDragStart}
               onMouseMove={handleDragMove}
@@ -1451,26 +1491,30 @@ function App() {
                   className={`ugc-feed-card ${playingPreview === map.title ? 'is-playing' : ''} ${pauseFlash === map.title ? 'show-pause-flash' : ''}`}
                   key={map.title}
                 >
-                  <video
-                    className="ugc-cover ugc-preview-video"
-                    ref={element => {
-                      if (element) previewVideoRefs.current[map.title] = element;
-                      else delete previewVideoRefs.current[map.title];
-                    }}
-                    src={map.video}
-                    poster={map.cover}
-                    preload="metadata"
-                    playsInline
-                    muted
-                    loop
-                    onClick={() => {
-                      if (playingPreview === map.title) pausePreviewVideo(map.title);
-                    }}
-                    onEnded={() => setPlayingPreview(null)}
-                    onPause={() => {
-                      if (playingPreview === map.title) setPlayingPreview(null);
-                    }}
-                  />
+                  {(index === activeFeedIndex || playingPreview === map.title) ? (
+                    <video
+                      className="ugc-cover ugc-preview-video"
+                      ref={element => {
+                        if (element) previewVideoRefs.current[map.title] = element;
+                        else delete previewVideoRefs.current[map.title];
+                      }}
+                      src={map.video}
+                      poster={map.cover}
+                      preload="none"
+                      playsInline
+                      muted
+                      loop
+                      onClick={() => {
+                        if (playingPreview === map.title) pausePreviewVideo(map.title);
+                      }}
+                      onEnded={() => setPlayingPreview(null)}
+                      onPause={() => {
+                        if (playingPreview === map.title) setPlayingPreview(null);
+                      }}
+                    />
+                  ) : (
+                    <img className="ugc-cover ugc-cover-poster" src={map.cover} alt={t(map.title)} loading="lazy" />
+                  )}
                   <div className="ugc-pause-flash" aria-hidden>
                     <span className="preview-pause-icon" />
                   </div>
@@ -1478,7 +1522,7 @@ function App() {
                   <div className="ugc-type-pill"><Compass size={14} /> {t(map.type)}</div>
                   <button
                     className="ugc-play-button"
-                    onClick={() => togglePreviewVideo(map.title)}
+                    onClick={() => togglePreviewVideo(map.title, index)}
                     aria-label={isEnglish ? `Play ${t(map.title)} preview` : `播放 ${map.title} 预览`}
                   >
                     <Play size={34} fill="currentColor" />
