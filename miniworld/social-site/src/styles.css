@@ -725,11 +725,14 @@ button {
   flex: 1;
 }
 
-.creator-info-large img {
+/* 仅头像圆形描边；勿用 .creator-info-large img 否则会误伤铭牌图 */
+.creator-info-large > img {
   width: 44px;
   height: 44px;
   border-radius: 50%;
   border: 2px solid #f3f4f6;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .creator-meta {
@@ -740,7 +743,7 @@ button {
 .creator-name-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
@@ -750,9 +753,17 @@ button {
 }
 
 .detail-badge-img {
-  height: 24px;
+  display: block;
+  height: 28px;
   width: auto;
+  max-width: min(160px, 42vw);
   object-fit: contain;
+  object-position: left center;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: none;
+  flex-shrink: 0;
 }
 
 .creator-meta p {
