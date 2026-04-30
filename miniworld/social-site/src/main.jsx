@@ -100,6 +100,16 @@ function App() {
   const [chatMessagesByFriend, setChatMessagesByFriend] = useState(initialChatMessagesByFriend);
   const [likedMaps, setLikedMaps] = useState(new Set());
   const [bookmarkedMaps, setBookmarkedMaps] = useState(new Set());
+  const [followedCreators, setFollowedCreators] = useState(new Set());
+
+  const toggleFollow = (creator) => {
+    setFollowedCreators(prev => {
+      const next = new Set(prev);
+      if (next.has(creator)) next.delete(creator);
+      else next.add(creator);
+      return next;
+    });
+  };
 
   const toggleLike = (title) => {
     setLikedMaps(prev => {
@@ -465,7 +475,12 @@ function App() {
                     <div className="creator-row">
                       <img src={map.avatar} alt={`${map.creator} 头像`} />
                       <span>@{map.creator}</span>
-                      <button onClick={() => setToast(`关注 ${map.creator}`)}>关注</button>
+                      <button 
+                        className={followedCreators.has(map.creator) ? 'followed' : ''} 
+                        onClick={() => toggleFollow(map.creator)}
+                      >
+                        {followedCreators.has(map.creator) ? '已关注' : '关注'}
+                      </button>
                     </div>
                     <h2>{map.title}</h2>
                     <p>{map.desc}</p>
@@ -508,7 +523,12 @@ function App() {
                     <p>113粉丝 · 132作品</p>
                   </div>
                 </div>
-                <button className="detail-follow-btn">关注</button>
+                <button 
+                  className={`detail-follow-btn ${followedCreators.has(selectedMapForDetail.creator) ? 'followed' : ''}`}
+                  onClick={() => toggleFollow(selectedMapForDetail.creator)}
+                >
+                  {followedCreators.has(selectedMapForDetail.creator) ? '已关注' : '关注'}
+                </button>
                 <button className="detail-close-btn" onClick={() => setSelectedMapForDetail(null)} aria-label="关闭"><img src={closeIcon} alt="关闭" /></button>
               </header>
 
