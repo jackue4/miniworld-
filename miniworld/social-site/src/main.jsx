@@ -391,6 +391,14 @@ function App() {
     return () => clearInterval(timer);
   }, [aiMessages]);
 
+  const createTypedAiTextMessage = (fullText) => ({
+    id: `ai-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+    from: 'ai',
+    text: '',
+    fullText,
+    typing: true,
+  });
+
   const handleAiQuickOption = (option) => {
     setAiHasInteracted(true);
     if (option.id === 'block-spawn-monster') {
@@ -422,6 +430,19 @@ function App() {
           typing: true,
           phase: 'code',
         },
+      ]);
+      return;
+    }
+
+    if (option.id === 'recent-update') {
+      const reply = [
+        "2. Brand‑new Smart AI is live: we've rebuilt the Little Imp's AI using a new behavior tree. It can't resist the Anniversary Birthday Cake on the ground—so it will run to the cake and play a special interaction animation. When it appears together with the Anniversary Merchant, it will also trigger a unique combo animation and VFX.",
+        "3. Taming gameplay upgraded—your own battle pet: interact with a wild Little Imp using the Anniversary Birthday Cake to tame it with a 100% success rate. Once tamed, the Little Imp becomes your personal combat pet.",
+      ].join('\n');
+      setAiMessages(prev => [
+        ...prev,
+        { from: 'me', text: option.text },
+        createTypedAiTextMessage(reply),
       ]);
       return;
     }
@@ -610,7 +631,10 @@ function App() {
                         </div>
                       </>
                     ) : (
-                      msg.text
+                      <span className="ai-text">
+                        {msg.text}
+                        {msg.typing ? <span className="ai-caret" aria-hidden /> : null}
+                      </span>
                     )}
                   </div>
                 </div>
