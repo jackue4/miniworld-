@@ -92,6 +92,7 @@ function App() {
   const [showComposer, setShowComposer] = useState(false);
   const [toast, setToast] = useState('欢迎回来，继续你的创造旅程');
   const [selectedFriend, setSelectedFriend] = useState(null);
+  const [selectedMapForDetail, setSelectedMapForDetail] = useState(null);
   const [chatInput, setChatInput] = useState('');
   const [chatMessagesByFriend, setChatMessagesByFriend] = useState(initialChatMessagesByFriend);
   const dragState = useRef({ active: false, startY: 0, scrollTop: 0 });
@@ -428,6 +429,7 @@ function App() {
                   <div className="ugc-type-pill"><Compass size={14} /> {map.type}</div>
                   <button className="ugc-play-button" onClick={() => setToast(`开始游玩：${map.title}`)} aria-label={`游玩 ${map.title}`}><Play size={34} fill="currentColor" /></button>
                   <aside className="ugc-side-actions">
+                    <button onClick={() => setSelectedMapForDetail(map)} className="detail-action-btn"><Compass size={22} /><span>详情</span></button>
                     <button onClick={() => setToast(`点赞 ${map.title}`)}><Heart size={22} /><span>{map.likes}</span></button>
                     <button onClick={() => setToast(`收藏 ${map.title}`)}><Bookmark size={22} /><span>收藏</span></button>
                     <button onClick={() => setToast(`分享 ${map.title}`)}><Share2 size={22} /><span>分享</span></button>
@@ -463,6 +465,79 @@ function App() {
           <button className={activeTab === 'friends' ? 'active' : ''} onClick={() => handleTabClick('friends')}><UsersRound size={21} /><span>Friends</span></button>
           <button className={activeTab === 'profile' ? 'active' : ''} onClick={() => handleTabClick('profile')}><UserRound size={21} /><span>Me</span></button>
         </nav>
+
+        {selectedMapForDetail && (
+          <div className="map-detail-overlay">
+            <section className="map-detail-page drag-scroll-area">
+              <header className="detail-header">
+                <div className="creator-info-large">
+                  <img src={selectedMapForDetail.avatar} alt={selectedMapForDetail.creator} />
+                  <div className="creator-meta">
+                    <div className="creator-name-row">
+                      <strong>{selectedMapForDetail.creator}</strong>
+                      <span className="badge-expert">进阶高手</span>
+                      <span className="badge-community">社区优秀创作者</span>
+                    </div>
+                    <p>113粉丝 · 132作品</p>
+                  </div>
+                </div>
+                <button className="detail-follow-btn">关注</button>
+                <button className="detail-close-btn" onClick={() => setSelectedMapForDetail(null)}><X size={24} /></button>
+              </header>
+
+              <div className="detail-main-content">
+                <div className="detail-cover-wrap">
+                  <img src={selectedMapForDetail.cover} alt="封面" />
+                  <div className="top-10-badge">创作赛TOP10</div>
+                </div>
+
+                <div className="detail-stats-row">
+                  <div className="stat-item"><strong>SS</strong><span>推荐级别</span></div>
+                  <div className="stat-item"><strong>1.0</strong><span>最新版本</span></div>
+                  <div className="stat-item"><strong>32</strong><span>触发器</span></div>
+                  <div className="stat-item"><strong>876</strong><span>方块数</span></div>
+                  <div className="stat-item"><strong>19.5h</strong><span>创作时长</span></div>
+                </div>
+
+                <div className="detail-primary-actions">
+                  <button className="btn-copy"><span>📦</span> 复制项目 <small>完全开源</small></button>
+                  <button className="btn-play"><span>▶</span> 试玩</button>
+                </div>
+
+                <div className="detail-description">
+                  <h2>{selectedMapForDetail.title}</h2>
+                  <p className="publish-date">发布于 2022-12-22</p>
+                  <div className="desc-text">
+                    <p>{selectedMapForDetail.desc}</p>
+                    <p>本项目采用了最新的物理引擎和逻辑触发器，为您带来沉浸式的游戏体验。玩家可以在地图中自由探索，解开隐藏的谜题，并与环境进行深度交互。无论是光影效果还是玩法深度，都经过了创作者的精心打磨。</p>
+                  </div>
+                </div>
+
+                <div className="detail-tags-section">
+                  <h3>作品标签</h3>
+                  <div className="detail-tags-grid">
+                    <span>完全开源</span>
+                    <span>多触发器</span>
+                    <span>跑酷游戏</span>
+                    <span>#凹凸创作赛</span>
+                    {selectedMapForDetail.tags.map(t => <span key={t}>#{t}</span>)}
+                  </div>
+                </div>
+              </div>
+
+              <footer className="detail-bottom-bar">
+                <button className="more-btn"><MoreHorizontal size={20} /></button>
+                <div className="comment-input-placeholder">
+                  <span>说点什么...</span>
+                </div>
+                <div className="bottom-stats">
+                  <button><Heart size={20} /> 10w</button>
+                  <button><MessageCircle size={20} /> 10w+</button>
+                </div>
+              </footer>
+            </section>
+          </div>
+        )}
 
         {showComposer && (
           <div className="sheet-backdrop" onClick={() => setShowComposer(false)}>
