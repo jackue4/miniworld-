@@ -528,7 +528,9 @@ function App() {
 
                 <div className="detail-primary-actions">
                   <button className="btn-copy"><span>📦</span> 复制项目 <small>完全开源</small></button>
-                  <button className="btn-play" onClick={() => window.open('https://apps.apple.com/cn/app/%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C/id1170455562', '_blank')}><span>▶</span> 试玩</button>
+                  <a href="https://apps.apple.com/cn/app/%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C/id1170455562" target="_blank" rel="noopener noreferrer" className="btn-play">
+                    <span>▶</span> 试玩
+                  </a>
                 </div>
 
                 <div className="detail-description">
