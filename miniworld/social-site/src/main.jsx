@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { ArrowLeft, Bell, Bookmark, Bot, Compass, DoorOpen, Gamepad2, Heart, Home, MessageCircle, MoreHorizontal, Play, Plus, Search, Send, Share2, SmilePlus, Sparkles, Tags, ThumbsUp, Trophy, UserPlus, UserRound, Users, UsersRound, Volume2, X, Zap } from 'lucide-react';
+import { ArrowLeft, Bell, Bookmark, Bot, Compass, DoorOpen, Gamepad2, Heart, Home, MessageCircle, MoreHorizontal, Play, Plus, Search, Send, Share2, SmilePlus, Sparkles, Tags, ThumbsUp, UserPlus, UserRound, Users, UsersRound, Video, Volume2, X, Zap } from 'lucide-react';
 import './styles.css';
 import homeHeroAvatar from './assets/avatar/avatar-hero.png';
 import homeMiniAvatar from './assets/avatar/avatar-mini.png';
@@ -318,7 +318,7 @@ function App() {
       setFriendsSection('directory');
       setDirectoryTag(friendDirectoryTags[0]);
     }
-    const labels = { home: '首页动态', games: '游戏大厅', create: '创建内容', friends: '好友列表', profile: '个人主页' };
+    const labels = { home: '首页动态', games: '视频流', create: '创建内容', friends: '好友列表', profile: '个人主页' };
     setToast(`已切换到${labels[tab]}`);
   };
 
@@ -1279,7 +1279,7 @@ function App() {
 
         <nav className={`bottom-nav ${isAiMode ? 'is-hidden' : ''}`} aria-label="主导航">
           <button className={activeTab === 'home' ? 'active' : ''} onClick={() => handleTabClick('home')}><Home size={21} /><span>Home</span></button>
-          <button className={activeTab === 'games' ? 'active' : ''} onClick={() => handleTabClick('games')}><Trophy size={21} /><span>Games</span></button>
+          <button className={activeTab === 'games' ? 'active' : ''} onClick={() => handleTabClick('games')}><Video size={21} /><span>Video</span></button>
           <button className="create-button" onClick={() => setShowComposer(true)} aria-label="创建"><Plus size={30} /></button>
           <button className={activeTab === 'friends' ? 'active' : ''} onClick={() => handleTabClick('friends')}><UsersRound size={21} /><span>Friends</span></button>
           <button className={activeTab === 'profile' ? 'active' : ''} onClick={() => handleTabClick('profile')}><UserRound size={21} /><span>Me</span></button>
