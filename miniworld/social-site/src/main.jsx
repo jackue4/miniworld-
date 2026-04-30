@@ -422,8 +422,8 @@ function App() {
                   <img className="ugc-cover" src={map.cover} alt={`${map.title} 地图封面`} />
                   <div className="ugc-cover-shade" />
                   <div className="ugc-primary-actions">
-                    <button onClick={() => setToast(`一键开始：${map.title}`)}><img src={playIcon} alt="一键游戏" className="action-icon" /> 一键游戏</button>
-                    <button onClick={() => setToast(`基于 ${map.title} 开始二次创作`)}><img src={remixIcon} alt="二次创作" className="action-icon" /> 二次创作</button>
+                    <button className="img-action-btn" onClick={() => setToast(`一键开始：${map.title}`)} aria-label="一键游戏"><img src={playIcon} alt="一键游戏" /></button>
+                    <button className="img-action-btn" onClick={() => setToast(`基于 ${map.title} 开始二次创作`)} aria-label="二次创作"><img src={remixIcon} alt="二次创作" /></button>
                   </div>
                   <div className="ugc-type-pill"><Compass size={14} /> {map.type}</div>
                   <button className="ugc-play-button" onClick={() => setToast(`开始游玩：${map.title}`)} aria-label={`游玩 ${map.title}`}><Play size={34} fill="currentColor" /></button>

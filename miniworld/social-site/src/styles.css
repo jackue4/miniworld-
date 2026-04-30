@@ -614,10 +614,30 @@ button {
   font-weight: 900;
 }
 
+.ugc-primary-actions button.img-action-btn {
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  height: auto;
+  min-width: 0;
+}
+
+.ugc-primary-actions button.img-action-btn img {
+  height: 34px;
+  width: auto;
+  display: block;
+}
+
 .ugc-primary-actions button:nth-child(2) {
   color: #7c2d12;
   background: linear-gradient(135deg, #fde68a, #fbbf24);
   box-shadow: 0 8px 18px rgba(245, 158, 11, 0.22);
+}
+
+.ugc-primary-actions button.img-action-btn:nth-child(2) {
+  background: none;
+  box-shadow: none;
 }
 
 .action-icon {
