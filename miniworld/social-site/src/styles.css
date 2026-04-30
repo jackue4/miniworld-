@@ -737,20 +737,11 @@ button {
   color: #111827;
 }
 
-.badge-expert {
-  font-size: 10px;
-  background: #dbeafe;
-  color: #2563eb;
-  padding: 1px 6px;
-  border-radius: 4px;
-}
-
-.badge-community {
-  font-size: 10px;
-  background: #fef3c7;
-  color: #d97706;
-  padding: 1px 6px;
-  border-radius: 4px;
+.detail-badge-img {
+  height: 16px;
+  width: auto;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .creator-meta p {

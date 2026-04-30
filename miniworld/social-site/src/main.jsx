@@ -18,6 +18,8 @@ import mapCover6 from './assets/map-covers/map-cover-6.png';
 import playIcon from './assets/icons/Frame 8507.png';
 import remixIcon from './assets/icons/Frame 8508.png';
 import closeIcon from './assets/icons/Component 177.png';
+import expertBadge from './assets/icons/image 58.png';
+import communityBadge from './assets/icons/image 61.png';
 
 const svgData = svg => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 
@@ -500,8 +502,8 @@ function App() {
                   <div className="creator-meta">
                     <div className="creator-name-row">
                       <strong>{selectedMapForDetail.creator}</strong>
-                      <span className="badge-expert">进阶高手</span>
-                      <span className="badge-community">社区优秀创作者</span>
+                      <img src={expertBadge} className="detail-badge-img" alt="进阶高手" />
+                      <img src={communityBadge} className="detail-badge-img" alt="社区优秀创作者" />
                     </div>
                     <p>113粉丝 · 132作品</p>
                   </div>
