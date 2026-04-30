@@ -828,9 +828,127 @@ button {
 .detail-stats-row {
   display: flex;
   justify-content: space-between;
-  padding: 10px 0 25px;
+  padding: 10px 0 20px;
   border-bottom: 1px solid #f3f4f6;
-  margin-bottom: 20px;
+  margin-bottom: 0;
+}
+
+.detail-friend-reco {
+  margin: 0 0 22px;
+  padding: 14px 14px 12px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f0f7ff 0%, #f8fafc 100%);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+}
+
+.detail-friend-reco__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.detail-friend-reco__title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.detail-friend-reco__icon {
+  color: #22c55e;
+  flex-shrink: 0;
+}
+
+.detail-friend-reco__title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.detail-friend-reco__badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.12);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.detail-friend-reco__avatars {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.detail-friend-reco__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  margin-left: -10px;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+.detail-friend-reco__avatar:first-child {
+  margin-left: 0;
+}
+
+.detail-friend-reco__more {
+  margin-left: 4px;
+  min-width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  padding: 0 8px;
+  border-radius: 10px;
+  background: #e2e8f0;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.detail-friend-reco__steam-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: #e2e8f0;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.detail-friend-reco__steam-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+  min-width: 8%;
+  transition: width 0.35s ease;
+}
+
+.detail-friend-reco__stats {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.detail-friend-reco__stats strong {
+  color: #111827;
+  font-weight: 900;
+}
+
+.detail-friend-reco__dot {
+  margin: 0 6px;
+  color: #cbd5e1;
+}
+
+.detail-friend-reco__hint {
+  margin: 0;
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.35;
 }
 
 .stat-item {

@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
-import { Bell, Gamepad2, Home, Plus, Search, Sparkles, UserRound, UsersRound, X, MessageCircle, Trophy, Zap, UserPlus, Volume2, MoreHorizontal, ArrowLeft, Send, Tags, SmilePlus, DoorOpen, Heart, Bookmark, Play, Share2, Compass } from 'lucide-react';
+import { Bell, Gamepad2, Home, Plus, Search, Sparkles, UserRound, UsersRound, X, MessageCircle, Trophy, Zap, UserPlus, Volume2, MoreHorizontal, ArrowLeft, Send, Tags, SmilePlus, DoorOpen, Heart, Bookmark, Play, Share2, Compass, ThumbsUp } from 'lucide-react';
 import './styles.css';
 import mainCharacterImage from './assets/main-character.png';
 import avatar1 from './assets/avatars/avatar-1.png';
@@ -64,6 +64,23 @@ const gameInviteTemplate = {
   roomId: '2001945593',
   players: '1/6',
   version: '1.55.0',
+};
+
+/** 详情页「好友推荐」演示数据（Steam 式社交证明） */
+const mapFriendActivityByTitle = {
+  '云朵小镇跑酷': { recommend: 4, played: 12, recommendAvatars: [avatar1, avatar2, avatar3], playedAvatars: [avatar2, avatar3, avatar4, avatar5, avatar6] },
+  '萌宠家园建造赛': { recommend: 6, played: 9, recommendAvatars: [avatar2, avatar3, avatar4], playedAvatars: [avatar1, avatar3, avatar5] },
+  '废墟能量战场': { recommend: 3, played: 18, recommendAvatars: [avatar3, avatar1], playedAvatars: [avatar1, avatar2, avatar3, avatar4, avatar5, avatar6] },
+  '樱花列车物语': { recommend: 5, played: 7, recommendAvatars: [avatar4, avatar5, avatar6], playedAvatars: [avatar2, avatar4, avatar6] },
+  '机关密室 24H': { recommend: 2, played: 5, recommendAvatars: [avatar5, avatar6], playedAvatars: [avatar1, avatar5, avatar3] },
+  '糖果岛派对': { recommend: 7, played: 15, recommendAvatars: [avatar6, avatar1, avatar2, avatar3], playedAvatars: [avatar1, avatar2, avatar3, avatar4, avatar5] },
+};
+
+const getMapFriendActivity = title => mapFriendActivityByTitle[title] ?? {
+  recommend: 3,
+  played: 8,
+  recommendAvatars: [avatar1, avatar2],
+  playedAvatars: [avatar2, avatar3, avatar4],
 };
 
 const ugcMaps = [
@@ -552,6 +569,50 @@ function App() {
                     <div className="stat-item"><strong>876</strong><span>方块数</span></div>
                     <div className="stat-item"><strong>19.5h</strong><span>创作时长</span></div>
                   </div>
+
+                  {(() => {
+                    const fa = getMapFriendActivity(selectedMapForDetail.title);
+                    const merged = [...fa.recommendAvatars, ...fa.playedAvatars];
+                    const seen = new Set();
+                    const uniqueAvatars = merged.filter(a => {
+                      if (seen.has(a)) return false;
+                      seen.add(a);
+                      return true;
+                    });
+                    const displayAvatars = uniqueAvatars.slice(0, 5);
+                    const morePlayed = Math.max(0, fa.played - displayAvatars.length);
+                    const ratioPct = fa.played > 0 ? Math.round((fa.recommend / fa.played) * 100) : 0;
+                    return (
+                      <aside className="detail-friend-reco" aria-label="好友推荐与游玩">
+                        <div className="detail-friend-reco__top">
+                          <div className="detail-friend-reco__title-row">
+                            <ThumbsUp size={16} className="detail-friend-reco__icon" aria-hidden />
+                            <span className="detail-friend-reco__title">好友评价</span>
+                            <span className="detail-friend-reco__badge">好友网络</span>
+                          </div>
+                          <div className="detail-friend-reco__avatars">
+                            {displayAvatars.map((src, i) => (
+                              <img key={i} src={src} alt="" className="detail-friend-reco__avatar" />
+                            ))}
+                            {morePlayed > 0 ? (
+                              <span className="detail-friend-reco__more">+{morePlayed}</span>
+                            ) : null}
+                          </div>
+                        </div>
+                        <div className="detail-friend-reco__steam-bar" aria-hidden>
+                          <div className="detail-friend-reco__steam-bar-fill" style={{ width: `${Math.min(100, ratioPct)}%` }} />
+                        </div>
+                        <p className="detail-friend-reco__stats">
+                          <strong>{fa.recommend}</strong>
+                          <span> 位好友推荐</span>
+                          <span className="detail-friend-reco__dot">·</span>
+                          <strong>{fa.played}</strong>
+                          <span> 位好友玩过</span>
+                        </p>
+                        <p className="detail-friend-reco__hint">仅统计你的好友列表内的数据。</p>
+                      </aside>
+                    );
+                  })()}
 
                   <div className="detail-description">
                     <h2>{selectedMapForDetail.title}</h2>
