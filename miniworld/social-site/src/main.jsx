@@ -573,8 +573,9 @@ function App() {
               <footer className="detail-bottom-bar detail-actions-sticky">
                 <div className="detail-primary-actions-full">
                   <button className="btn-copy"><span>📦</span> 复制项目 <small>完全开源</small></button>
-                  <a href="https://apps.apple.com/cn/app/%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C/id1170455562" target="_blank" rel="noopener noreferrer" className="btn-play">
-                    <img src={playIcon} alt="试玩" />
+                  <a href="https://apps.apple.com/cn/app/%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C/id1170455562" target="_blank" rel="noopener noreferrer" className="btn-play-custom">
+                    <Play size={18} fill="currentColor" />
+                    <span>试玩</span>
                   </a>
                 </div>
               </footer>

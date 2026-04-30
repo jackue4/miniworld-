@@ -840,15 +840,15 @@ button {
 }
 
 .detail-actions-sticky {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: #fff;
-  padding: 16px;
-  border-top: 1px solid #f3f4f6;
-  z-index: 50;
-  height: auto;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 14px 18px 24px;
+  border-top: 1px solid rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(10px);
+  z-index: 110;
 }
 
 .detail-primary-actions-full {
@@ -859,31 +859,51 @@ button {
 }
 
 .detail-primary-actions-full button,
-.detail-primary-actions-full .btn-play {
-  height: 48px;
-  border-radius: 12px;
+.detail-primary-actions-full .btn-play-custom {
+  height: 52px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-weight: 800;
   font-size: 15px;
+  transition: transform 0.15s ease;
 }
 
-.btn-play {
-  background: none;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.detail-primary-actions-full button:active,
+.detail-primary-actions-full .btn-play-custom:active {
+  transform: scale(0.97);
+}
+
+.btn-copy {
+  background: #3b82f6;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
+.btn-copy small {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: rgba(0,0,0,0.15);
+  padding: 2px 6px;
+  font-size: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.btn-play-custom {
+  background: #a3ff00;
+  color: #111827;
   text-decoration: none;
-  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(163, 255, 0, 0.3);
 }
 
-.btn-play img {
-  height: 100%;
-  width: auto;
-  object-fit: contain;
+.btn-play-custom span {
+  font-size: 16px;
+  letter-spacing: 0.05em;
 }
 
 .detail-description h2 {
