@@ -3293,3 +3293,30 @@ button {
   box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
+.friends-mode .friends-rail {
+  background: rgba(5, 6, 10, 0.92);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 12px 30px rgba(0, 0, 0, 0.48);
+}
+
+.friends-mode .friends-rail-item {
+  color: rgba(229, 231, 235, 0.62);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.friends-mode .friends-rail-item:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.friends-mode .friends-rail-item.active {
+  color: rgba(255, 255, 255, 0.96);
+  background: rgba(34, 211, 238, 0.16);
+  box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.32), 0 0 18px rgba(34, 211, 238, 0.16);
+}
+
+.friends-mode .friends-rail-badge {
+  color: #fff;
+  background: #ef4444;
+  box-shadow: 0 0 0 2px rgba(5, 6, 10, 0.92);
+}
+
