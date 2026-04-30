@@ -17,6 +17,7 @@ import mapCover5 from './assets/map-covers/map-cover-5.png';
 import mapCover6 from './assets/map-covers/map-cover-6.png';
 import playIcon from './assets/icons/Frame 8507.png';
 import remixIcon from './assets/icons/Frame 8508.png';
+import closeIcon from './assets/icons/Component 177.png';
 
 const svgData = svg => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
 
@@ -506,7 +507,7 @@ function App() {
                   </div>
                 </div>
                 <button className="detail-follow-btn">关注</button>
-                <button className="detail-close-btn" onClick={() => setSelectedMapForDetail(null)}><X size={24} /></button>
+                <button className="detail-close-btn" onClick={() => setSelectedMapForDetail(null)} aria-label="关闭"><img src={closeIcon} alt="关闭" /></button>
               </header>
 
               <div className="detail-main-content">
