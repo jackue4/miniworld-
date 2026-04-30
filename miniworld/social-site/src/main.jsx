@@ -510,7 +510,7 @@ function App() {
 
         {selectedMapForDetail && (
           <div className="map-detail-overlay">
-            <section className="map-detail-page drag-scroll-area">
+            <section className="map-detail-page">
               <header className="detail-header">
                 <div className="creator-info-large">
                   <img src={selectedMapForDetail.avatar} alt={selectedMapForDetail.creator} />
@@ -532,45 +532,52 @@ function App() {
                 <button className="detail-close-btn" onClick={() => setSelectedMapForDetail(null)} aria-label="关闭"><img src={closeIcon} alt="关闭" /></button>
               </header>
 
-              <div className="detail-main-content">
-                <div className="detail-cover-wrap">
-                  <img src={selectedMapForDetail.cover} alt="封面" />
-                  <div className="top-10-badge">创作赛TOP10</div>
-                </div>
-
-                <div className="detail-stats-row">
-                  <div className="stat-item"><strong>SS</strong><span>推荐级别</span></div>
-                  <div className="stat-item"><strong>1.0</strong><span>最新版本</span></div>
-                  <div className="stat-item"><strong>32</strong><span>触发器</span></div>
-                  <div className="stat-item"><strong>876</strong><span>方块数</span></div>
-                  <div className="stat-item"><strong>19.5h</strong><span>创作时长</span></div>
-                </div>
-
-                <div className="detail-description">
-                  <h2>{selectedMapForDetail.title}</h2>
-                  <p className="publish-date">发布于 2022-12-22</p>
-                  <div className="desc-text">
-                    <p>{selectedMapForDetail.desc}</p>
-                    <p>本项目采用了最新的物理引擎和逻辑触发器，为您带来沉浸式的游戏体验。玩家可以在地图中自由探索，解开隐藏的谜题，并与环境进行深度交互。无论是光影效果还是玩法深度，都经过了创作者的精心打磨。</p>
+              <div
+                className="detail-main-scroll drag-scroll-area"
+                onMouseDown={handleDragStart}
+                onMouseMove={handleDragMove}
+                onMouseUp={handleDragEnd}
+                onMouseLeave={handleDragEnd}
+              >
+                <div className="detail-main-content">
+                  <div className="detail-cover-wrap">
+                    <img src={selectedMapForDetail.cover} alt="封面" />
+                    <div className="top-10-badge">创作赛TOP10</div>
                   </div>
-                </div>
 
-                <div className="detail-tags-section">
-                  <h3>作品标签</h3>
-                  <div className="detail-tags-grid">
-                    <span>完全开源</span>
-                    <span>多触发器</span>
-                    <span>跑酷游戏</span>
-                    <span>#凹凸创作赛</span>
-                    {selectedMapForDetail.tags.map(t => <span key={t}>#{t}</span>)}
+                  <div className="detail-stats-row">
+                    <div className="stat-item"><strong>SS</strong><span>推荐级别</span></div>
+                    <div className="stat-item"><strong>1.0</strong><span>最新版本</span></div>
+                    <div className="stat-item"><strong>32</strong><span>触发器</span></div>
+                    <div className="stat-item"><strong>876</strong><span>方块数</span></div>
+                    <div className="stat-item"><strong>19.5h</strong><span>创作时长</span></div>
                   </div>
-                </div>
 
-                {/* 占位空间 */}
-                <div style={{ height: '120px' }}></div>
+                  <div className="detail-description">
+                    <h2>{selectedMapForDetail.title}</h2>
+                    <p className="publish-date">发布于 2022-12-22</p>
+                    <div className="desc-text">
+                      <p>{selectedMapForDetail.desc}</p>
+                      <p>本项目采用了最新的物理引擎和逻辑触发器，为您带来沉浸式的游戏体验。玩家可以在地图中自由探索，解开隐藏的谜题，并与环境进行深度交互。无论是光影效果还是玩法深度，都经过了创作者的精心打磨。</p>
+                    </div>
+                  </div>
+
+                  <div className="detail-tags-section">
+                    <h3>作品标签</h3>
+                    <div className="detail-tags-grid">
+                      <span>完全开源</span>
+                      <span>多触发器</span>
+                      <span>跑酷游戏</span>
+                      <span>#凹凸创作赛</span>
+                      {selectedMapForDetail.tags.map(t => <span key={t}>#{t}</span>)}
+                    </div>
+                  </div>
+
+                  <div className="detail-main-content-spacer" aria-hidden />
+                </div>
               </div>
 
-              <footer className="detail-bottom-bar detail-actions-sticky">
+              <footer className="detail-bottom-bar detail-bottom-bar--map-actions">
                 <div className="detail-primary-actions-full">
                   <button className="btn-copy"><span>📦</span> 复制项目 <small>完全开源</small></button>
                   <a href="https://apps.apple.com/cn/app/%E8%BF%B7%E4%BD%A0%E4%B8%96%E7%95%8C/id1170455562" target="_blank" rel="noopener noreferrer" className="btn-play-custom">

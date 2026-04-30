@@ -688,22 +688,34 @@ button {
 }
 
 .map-detail-page {
+  position: relative;
   height: 100%;
-  overflow-y: auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   background: #fff;
-  padding-bottom: 80px;
+}
+
+.detail-main-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .detail-header {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   padding: 50px 16px 15px;
-  position: sticky;
-  top: 0;
   background: #fff;
   z-index: 10;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.detail-main-content-spacer {
+  height: 24px;
 }
 
 .creator-info-large {
@@ -839,32 +851,11 @@ button {
   color: #6b7280;
 }
 
-.detail-actions-sticky {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.98);
-  padding: 14px 18px 24px;
-  border-top: 1px solid rgba(15, 23, 42, 0.05);
-  backdrop-filter: blur(10px);
-  z-index: 110;
-}
-
 .detail-primary-actions-full {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 12px;
   width: 100%;
-  background: rgba(255, 255, 255, 0.98);
-  padding: 14px 18px 24px;
-  border-top: 1px solid rgba(15, 23, 42, 0.05);
-  backdrop-filter: blur(10px);
-  z-index: 110;
 }
 
 .detail-primary-actions-full button,
@@ -966,6 +957,24 @@ button {
   padding: 0 16px;
   gap: 12px;
   z-index: 20;
+}
+
+/* 地图详情：底部操作栏在手机框内，不相对整页 fixed */
+.detail-bottom-bar.detail-bottom-bar--map-actions {
+  position: relative;
+  flex-shrink: 0;
+  bottom: auto;
+  left: auto;
+  right: auto;
+  height: auto;
+  display: block;
+  padding: 12px 16px 20px;
+  padding-bottom: max(20px, env(safe-area-inset-bottom, 0px));
+  background: rgba(255, 255, 255, 0.98);
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  backdrop-filter: blur(10px);
+  z-index: 15;
+  gap: 0;
 }
 
 .comment-input-placeholder {
