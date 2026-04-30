@@ -15,11 +15,10 @@ import mapCover3 from './assets/map-covers/map-cover-3.png';
 import mapCover4 from './assets/map-covers/map-cover-4.png';
 import mapCover5 from './assets/map-covers/map-cover-5.png';
 import mapCover6 from './assets/map-covers/map-cover-6.png';
+import playIcon from './assets/icons/Frame 8507.png';
+import remixIcon from './assets/icons/Frame 8508.png';
 
 const svgData = svg => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
-
-const playIcon = svgData(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="16" fill="#fff"/><path d="M18 14v20l17-10z" fill="#5865f2"/></svg>`);
-const remixIcon = svgData(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="16" fill="#fff"/><path d="M24 8l4.2 10.8L40 20l-9 7.6L33.8 40 24 33.2 14.2 40 17 27.6 8 20l11.8-1.2z" fill="#7c3aed"/></svg>`);
 
 const friends = [
   { name: 'Mika', avatar: avatar1, status: 'online', color: '#ffe35d' },
