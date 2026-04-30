@@ -886,7 +886,7 @@ button {
 }
 
 .btn-play img {
-  height: 48px;
+  height: 100%;
   width: auto;
   object-fit: contain;
 }
